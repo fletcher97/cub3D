@@ -13,7 +13,16 @@
 # Project Variables
 ################################################################################
 
-NAME = ...
+NAME = cub3D
+
+MLX_LIB_LINUX_ROOT = ${LIB_ROOT}minilibx-linux/
+MLX_LIB_LINUX_INC = ${MLX_LIB_LINUX_ROOT}
+MLX_LIB_LINUX = ${MLX_LIB_LINUX_ROOT}libmlx.a
+# MLX_LIB_LINUX = ${MLX_LIB_LINUX_ROOT}libmlx_x86_64.a
+
+LIBFT_ROOT = ${LIB_ROOT}libft/
+LIBFT_INC = ${LIBFT_ROOT}inc/
+LIBFT = ${LIBFT_ROOT}bin/libft.a
 
 ################################################################################
 # Configs
@@ -45,25 +54,28 @@ DFLAGS = -g -fsanitize=address
 
 BIN_ROOT = bin/
 SRC_ROOT = src/
+LIB_ROOT = lib/
 INC_ROOT = inc/
 OBJ_ROOT = obj/
 DEP_ROOT = dep/
 TESTS_ROOT = tests/
 
-DIRS = ...
+DIRS = error/ graphics/ map/ player/
 
 SRC_DIRS := $(addprefix ${SRC_ROOT}, ${DIRS})
 OBJ_DIRS := $(addprefix ${OBJ_ROOT}, ${DIRS})
 DEP_DIRS := $(addprefix ${DEP_ROOT}, ${DIRS})
+INC_DIRS := ${INC_ROOT} ${LIBFT_INC} ${MLX_LIB_LINUX_INC}
 
 SRCS := $(foreach dir, ${SRC_DIRS}, $(wildcard ${dir}*.c))
 SRCS += $(wildcard ${SRC_ROOT}*.c)
 OBJS := $(subst ${SRC_ROOT}, ${OBJ_ROOT}, ${SRCS:.c=.o})
 DEPS := $(subst ${SRC_ROOT}, ${DEP_ROOT}, ${SRCS:.c=.d})
 
-TESTS := $(wildcard ${TESTS_ROOT}*.c)
+INCS := ${addprefix -I, ${INC_DIRS}}
 
-INCS := -I ${INC_ROOT}
+
+TESTS := $(wildcard ${TESTS_ROOT}*.c)
 
 BINS := ${BIN_ROOT}${NAME}
 TEST := ${TESTS_ROOT}mytest
@@ -73,13 +85,19 @@ TEST := ${TESTS_ROOT}mytest
 ################################################################################
 
 vpath %.o $(OBJ_ROOT)
-vpath %.h $(INC_ROOT)
+vpath %.h $(INC_DIRS)
 vpath %.c $(SRC_DIRS)
 vpath %.d $(DEP_DIRS)
 
 ################################################################################
 # Conditions
 ################################################################################
+
+ifeq ($(shell uname), Linux)
+	LIBS := -L${MLX_LIB_LINUX_ROOT} -lmlx
+	LIBS += -L${LIBFT_ROOT}bin -lft
+	LIBS += -L/usr/lib -lXext -lX11 -lm -lz
+endif
 
 ifeq ($(VERBOSE),0)
 	MAKEFLAGS += --silent
@@ -98,10 +116,17 @@ endif
 
 all: ${BINS}
 
-${BINS}: ${OBJS}
-	${AT}printf "\033[38;5;46m[CREATING LIBFT ARCHIVE]\033[0m\n" ${BLOCK}
+${BINS}: ${LIBFT} ${MLX_LIB_LINUX} ${OBJS}
+	${AT}printf "\033[38;5;46m[CREATING ${NAME} ]\033[0m\n" ${BLOCK}
 	${AT}mkdir -p ${BIN_ROOT}
-	${AT}cd ${BIN_ROOT}; ${AR} ${@F} $(addprefix ../, ${OBJS})
+	${AT}${CC} ${CFLAGS} ${INCS} ${OBJS} ${LIBS} -o ${BIN_ROOT}${@F}
+
+
+${LIBFT}:
+	${AT}make -C ${LIBFT_ROOT} ${BLOCK}
+
+${MLX_LIB_LINUX}:
+	${AT}make -C ${MLX_LIB_LINUX_ROOT}
 
 ################################################################################
 # Setup Target
@@ -140,6 +165,7 @@ clean_dep:
 	${AT}find ${DEP_ROOT} -type f -delete 2>/dev/null
 
 clean_all: clean_dep fclean
+	make clean_all -C ${LIBFT_ROOT}
 
 re: fclean all
 
@@ -162,10 +188,10 @@ testm: debug ${TEST}
 
 ${TEST}: CFLAGS += ${DFLAGS}
 ${TEST}:
-	${AT}printf "\033[38;5;46m[GENERATING TEST]\033[0m\n" ${BLOCK}
-	${AT}${CC} ${CFLAGS} ${INCS} ${TESTS} ${BIN_ROOT}/${NAME} -o $@
-	${AT}printf "\033[33m[RUNNING TEST]\033[0m\n" ${BLOCK}
-	${AT}./$@
+	# ${AT}printf "\033[38;5;46m[GENERATING TEST]\033[0m\n" ${BLOCK}
+	# ${AT}${CC} ${CFLAGS} ${LIBS} ${TESTS} ${BIN_ROOT}/${NAME} -o $@
+	# ${AT}printf "\033[33m[RUNNING TEST]\033[0m\n" ${BLOCK}
+	# ${AT}./$@
 
 ################################################################################
 # .PHONY
@@ -188,9 +214,10 @@ define make_dep
 ${1} : ${2}
 	$${AT}printf "\033[38;5;13m[DEP]: \033[38;5;47m$$@\033[0m\n" ${BLOCK}
 	$${AT}mkdir -p $${@D}
-	$${AT}$${CC} -MM $$< -I $${INC_ROOT} -MF $$@
-	$${AT}sed -i.tmp --expression 's|:| $$@ :|' $$@ && rm $$@.tmp
-	$${AT}sed -i.tmp --expression '1 s|^|$${@D}/|' $$@ && rm $$@.tmp
+	$${AT}rm -f $$@
+	$${AT}$${CC} -MM $$< $${INCS} -MF $$@
+	$${AT}sed -i.tmp --expression 's|:| $$@ :|' $$@ && rm -f $$@.tmp
+	$${AT}sed -i.tmp --expression '1 s|^|$${@D}/|' $$@ && rm -f $$@.tmp
 endef
 
 ################################################################################
