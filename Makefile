@@ -14,10 +14,8 @@
 ################################################################################
 
 NAME = cub3D
-
-MLX_LIB_LINUX_ROOT = ${LIB_ROOT}minilibx-linux/
-MLX_LIB_LINUX_INC = ${MLX_LIB_LINUX_ROOT}
-MLX_LIB_LINUX = ${MLX_LIB_LINUX_ROOT}libmlx.a
+MLX_LIB_INC = ${MLX_LIB_ROOT}
+MLX_LIB = ${MLX_LIB_ROOT}libmlx.a
 # MLX_LIB_LINUX = ${MLX_LIB_LINUX_ROOT}libmlx_x86_64.a
 
 LIBFT_ROOT = ${LIB_ROOT}libft/
@@ -38,6 +36,9 @@ LIBFT = ${LIBFT_ROOT}bin/libft.a
 # If no value is specified or an incorrect value is given make will print each
 # command like if VERBOSE was set to 3.
 VERBOSE = 1
+
+# On mac use opengl version of minilibx if OPENGL = 1 else use metal version
+OPENGL = 0
 
 ################################################################################
 # Compiler & Flags
@@ -65,7 +66,7 @@ DIRS = error/ graphics/ map/ player/
 SRC_DIRS := $(addprefix ${SRC_ROOT}, ${DIRS})
 OBJ_DIRS := $(addprefix ${OBJ_ROOT}, ${DIRS})
 DEP_DIRS := $(addprefix ${DEP_ROOT}, ${DIRS})
-INC_DIRS := ${INC_ROOT} ${LIBFT_INC} ${MLX_LIB_LINUX_INC}
+INC_DIRS := ${INC_ROOT} ${LIBFT_INC} ${MLX_LIB_INC}
 
 SRCS := $(foreach dir, ${SRC_DIRS}, $(wildcard ${dir}*.c))
 SRCS += $(wildcard ${SRC_ROOT}*.c)
@@ -94,12 +95,24 @@ vpath %.d $(DEP_DIRS)
 ################################################################################
 
 ifeq ($(shell uname), Linux)
-	LIBS := -L${MLX_LIB_LINUX_ROOT} -lmlx
+	LIBS := -L${MLX_LIB_ROOT} -lmlx
 	LIBS += -L${LIBFT_ROOT}bin -lft
 	LIBS += -L/usr/lib -lXext -lX11 -lm -lz
+	MLX_LIB_ROOT = ${LIB_ROOT}minilibx-linux/
+	SED = sed -i.tmp --expression
+else ifeq ($(shell uname), Darwin)
+	LIBS := -L${MLX_LIB_ROOT} -lmlx
+	LIBS += -L${LIBFT_ROOT}bin -lft
+	LIBS += -L/usr/lib -lXext -lX11 -lm -lz
+	SED = sed -i.tmp
+	ifeq (${OPENGL},1)
+		MLX_LIB_ROOT = ${LIB_ROOT}minilibx_opengl/
+	else
+		MLX_LIB_ROOT = ${LIB_ROOT}minilibx_metal/
+	endif
 endif
 
-ifeq ($(VERBOSE),0)
+ifeq (${VERBOSE},0)
 	MAKEFLAGS += --silent
 	BLOCK = >/dev/null
 else ifeq ($(VERBOSE),1)
@@ -116,7 +129,7 @@ endif
 
 all: ${BINS}
 
-${BINS}: ${LIBFT} ${MLX_LIB_LINUX} ${OBJS}
+${BINS}: ${LIBFT} ${MLX_LIB} ${OBJS}
 	${AT}printf "\033[38;5;46m[CREATING ${NAME} ]\033[0m\n" ${BLOCK}
 	${AT}mkdir -p ${BIN_ROOT}
 	${AT}${CC} ${CFLAGS} ${INCS} ${OBJS} ${LIBS} -o ${BIN_ROOT}${@F}
@@ -125,8 +138,8 @@ ${BINS}: ${LIBFT} ${MLX_LIB_LINUX} ${OBJS}
 ${LIBFT}:
 	${AT}make -C ${LIBFT_ROOT} ${BLOCK}
 
-${MLX_LIB_LINUX}:
-	${AT}make -C ${MLX_LIB_LINUX_ROOT}
+${MLX_LIB}:
+	${AT}make -C ${MLX_LIB_ROOT}
 
 ################################################################################
 # Setup Target
@@ -192,6 +205,8 @@ ${TEST}:
 	# ${AT}${CC} ${CFLAGS} ${LIBS} ${TESTS} ${BIN_ROOT}/${NAME} -o $@
 	# ${AT}printf "\033[33m[RUNNING TEST]\033[0m\n" ${BLOCK}
 	# ${AT}./$@
+	${AT}echo ${MLX_LIB_ROOT} ${BLOCK}
+	# ${AT}echo ${OPENGL} ${BLOCK}
 
 ################################################################################
 # .PHONY
@@ -216,8 +231,8 @@ ${1} : ${2}
 	$${AT}mkdir -p $${@D}
 	$${AT}rm -f $$@
 	$${AT}$${CC} -MM $$< $${INCS} -MF $$@
-	$${AT}sed -i.tmp --expression 's|:| $$@ :|' $$@ && rm -f $$@.tmp
-	$${AT}sed -i.tmp --expression '1 s|^|$${@D}/|' $$@ && rm -f $$@.tmp
+	$${AT}$${SED} 's|:| $$@ :|' $$@ && rm -f $$@.tmp
+	$${AT}$${SED} '1 s|^|$${@D}/|' $$@ && rm -f $$@.tmp
 endef
 
 ################################################################################
