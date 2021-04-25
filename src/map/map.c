@@ -28,6 +28,7 @@ static int	parse_map(int fd)
 int	load(const char *file)
 {
 	int	fd;
+	int	parse_status;
 
 	if (!ft_strendw(file, ".cub"))
 	{
@@ -40,8 +41,7 @@ int	load(const char *file)
 		printf("[ERROR] : %s\n", strerror(errno));
 		return (0);
 	}
-	if (!parse_map(fd))
-		return (0);
+	parse_status = parse_map(fd);
 	close(fd);
-	return (1);
+	return (parse_status);
 }
