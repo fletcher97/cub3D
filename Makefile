@@ -102,7 +102,7 @@ ifeq ($(shell uname), Linux)
 	LIBS += -L${LIBFT_ROOT}bin -lft
 	LIBS += -L/usr/lib -lXext -lX11 -lm -lz
 	SED := sed -i.tmp --expression
-	SED_END := && rm -f $$@.tmp
+	SED_END = && rm -f $@.tmp
 else ifeq ($(shell uname), Darwin)
 	LIBS := -L${LIBFT_ROOT}bin -lft
 	ifeq (${MLX}, opengl)
@@ -117,7 +117,7 @@ else ifeq ($(shell uname), Darwin)
 	endif
 	INCS += $(addprefix -I, ${MLX_LIB_ROOT})
 	SED = sed -i.tmp
-	SED_END := && rm -f $$@.tmp
+	SED_END = && rm -f $@.tmp
 endif
 
 ifeq (${VERBOSE},0)
