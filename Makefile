@@ -14,8 +14,7 @@
 ################################################################################
 
 NAME = cub3D
-MLX_LIB_INC = ${MLX_LIB_ROOT}
-MLX_LIB = ${MLX_LIB_ROOT}libmlx.a
+
 # MLX_LIB_LINUX = ${MLX_LIB_LINUX_ROOT}libmlx_x86_64.a
 
 LIBFT_ROOT = ${LIB_ROOT}libft/
@@ -37,8 +36,9 @@ LIBFT = ${LIBFT_ROOT}bin/libft.a
 # command like if VERBOSE was set to 3.
 VERBOSE = 1
 
-# On mac use opengl version of minilibx if OPENGL = 1 else use metal version
-OPENGL = 0
+# Minilibx to be selected when running in mac.
+# Possible values are: mms, opengl (default: mms)
+MLX = opengl
 
 ################################################################################
 # Compiler & Flags
@@ -47,7 +47,7 @@ OPENGL = 0
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
-DFLAGS = -g -fsanitize=address
+DFLAGS = -g
 
 ################################################################################
 # Folders & Files
@@ -66,7 +66,7 @@ DIRS = error/ graphics/ map/ player/
 SRC_DIRS := $(addprefix ${SRC_ROOT}, ${DIRS})
 OBJ_DIRS := $(addprefix ${OBJ_ROOT}, ${DIRS})
 DEP_DIRS := $(addprefix ${DEP_ROOT}, ${DIRS})
-INC_DIRS := ${INC_ROOT} ${LIBFT_INC} ${MLX_LIB_INC}
+INC_DIRS := ${INC_ROOT} ${LIBFT_INC}
 
 SRCS := $(foreach dir, ${SRC_DIRS}, $(wildcard ${dir}*.c))
 SRCS += $(wildcard ${SRC_ROOT}*.c)
@@ -95,21 +95,29 @@ vpath %.d $(DEP_DIRS)
 ################################################################################
 
 ifeq ($(shell uname), Linux)
+	MLX_LIB_ROOT := ${LIB_ROOT}minilibx-linux/
+	MLX_LIB := ${MLX_LIB_ROOT}libmlx.a
+	INCS += $(addprefix -I, ${MLX_LIB_ROOT})
 	LIBS := -L${MLX_LIB_ROOT} -lmlx
 	LIBS += -L${LIBFT_ROOT}bin -lft
 	LIBS += -L/usr/lib -lXext -lX11 -lm -lz
-	MLX_LIB_ROOT = ${LIB_ROOT}minilibx-linux/
-	SED = sed -i.tmp --expression
+	SED := sed -i.tmp --expression
+	SED_END := && rm -f $$@.tmp
 else ifeq ($(shell uname), Darwin)
-	LIBS := -L${MLX_LIB_ROOT} -lmlx
-	LIBS += -L${LIBFT_ROOT}bin -lft
-	LIBS += -L/usr/lib -lXext -lX11 -lm -lz
-	SED = sed -i.tmp
-	ifeq (${OPENGL},1)
-		MLX_LIB_ROOT = ${LIB_ROOT}minilibx_opengl/
-	else
-		MLX_LIB_ROOT = ${LIB_ROOT}minilibx_metal/
+	LIBS := -L${LIBFT_ROOT}bin -lft
+	ifeq (${MLX}, opengl)
+		MLX_LIB_ROOT := ${LIB_ROOT}minilibx_opengl_20191021/
+		LIBS += -L${MLX_LIB_ROOT} -lmlx
+		LIBS += -framework OpenGL -framework AppKit -lz
+		MLX_LIB := ${MLX_LIB_ROOT}libmlx.dylib
+	else ifeq (${MLX}, mms)
+		MLX_LIB_ROOT := ${LIB_ROOT}minilibx_mms_20200219/
+		LIBS += -L${MLX_LIB_ROOT} -lmlx
+		MLX_LIB := ${MLX_LIB_ROOT}libmlx.a
 	endif
+	INCS += $(addprefix -I, ${MLX_LIB_ROOT})
+	SED = sed -i.tmp
+	SED_END := && rm -f $$@.tmp
 endif
 
 ifeq (${VERBOSE},0)
@@ -187,7 +195,7 @@ re: fclean all
 ################################################################################
 
 debug: CFLAGS += ${DFLAGS}
-debug: all
+debug: ${LIBFT} ${MLX_LIB} ${OBJS}
 
 debug_re: fclean debug
 
@@ -198,15 +206,17 @@ debug_re: fclean debug
 testre: debug_re ${TEST}
 
 testm: debug ${TEST}
+	${AT}printf "\033[33m[RUNNING TEST]\033[0m\n" ${BLOCK}
+	${AT}./${TEST}
 
+testv: debug ${TEST}
+	${AT}printf "\033[33m[RUNNING TEST]\033[0m\n" ${BLOCK}
+	${AT}valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all -v ./${TEST}
 ${TEST}: CFLAGS += ${DFLAGS}
 ${TEST}:
-	# ${AT}printf "\033[38;5;46m[GENERATING TEST]\033[0m\n" ${BLOCK}
-	# ${AT}${CC} ${CFLAGS} ${LIBS} ${TESTS} ${BIN_ROOT}/${NAME} -o $@
-	# ${AT}printf "\033[33m[RUNNING TEST]\033[0m\n" ${BLOCK}
-	# ${AT}./$@
-	${AT}echo ${MLX_LIB_ROOT} ${BLOCK}
-	# ${AT}echo ${OPENGL} ${BLOCK}
+	${AT}printf "\033[38;5;46m[GENERATING TEST]\033[0m\n" ${BLOCK}
+	${AT}${CC} ${CFLAGS} ${INCS} ${OBJS} ${LIBS} -o $@
+
 
 ################################################################################
 # .PHONY
@@ -231,8 +241,8 @@ ${1} : ${2}
 	$${AT}mkdir -p $${@D}
 	$${AT}rm -f $$@
 	$${AT}$${CC} -MM $$< $${INCS} -MF $$@
-	$${AT}$${SED} 's|:| $$@ :|' $$@ && rm -f $$@.tmp
-	$${AT}$${SED} '1 s|^|$${@D}/|' $$@ && rm -f $$@.tmp
+	$${AT}$${SED} 's|:| $$@ :|' $$@ $${SED_END}
+	$${AT}$${SED} '1 s|^|$${@D}/|' $$@ $${SED_END}
 endef
 
 ################################################################################
