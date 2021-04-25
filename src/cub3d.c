@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/04/25 02:32:15 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/04/25 07:13:27 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "cub3d.h"
 #include "c3d_map.h"
 #include "c3d_keys.h"
+#include "c3d_graphics.h"
 
 char play = 1;
 
@@ -67,7 +68,7 @@ void	terminate(t_cub3d cub3d)
 	mlx_destroy_window(cub3d.mlx, cub3d.screen.win);
 	ft_free(cub3d.screen.title);
 	mlx_destroy_display(cub3d.mlx);
-	// mlx_destroy(cub3d.mlx);
+	ft_free(cub3d.mlx);
 }
 
 int	stop(int key_code, void *param)

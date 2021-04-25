@@ -6,12 +6,20 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 19:08:27 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/03/16 04:31:43 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/04/25 03:37:14 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
+
+#include "c3d_player.h"
+
+typedef struct	s_pos
+{
+	int x;
+	int y;
+}				t_pos;
 
 typedef struct s_img
 {
@@ -39,8 +47,7 @@ typedef struct	s_map
 
 typedef	struct	s_player
 {
-	int		x;
-	int		y;
+	t_pos	pos;
 	double	dir;
 }				t_player;
 
@@ -58,15 +65,5 @@ typedef struct	s_cub3d
 	t_screen	screen;
 	t_game		game;
 }				t_cub3d;
-
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-void	get_screen(t_screen *screen);
-void	next_frame(t_screen screen, void *mlx);
-void	render(t_cub3d cub3d);
-
-void	render1(t_cub3d cub3d);
-void	render2(t_cub3d cub3d);
-void	render3(t_cub3d cub3d);
-void	render4(t_cub3d cub3d);
 
 #endif
