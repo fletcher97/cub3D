@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   key_listener.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/10 21:25:30 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/04/29 15:00:50 by mgueifao         ###   ########.fr       */
+/*   Created: 2021/04/25 07:24:09 by mgueifao          #+#    #+#             */
+/*   Updated: 2021/04/29 15:01:07 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_stdlib.h"
-
-#include "cub3d.h"
-
-t_player *player_init(double x, double y, double dir)
+int	stop(int key_code, void *param)
 {
-	t_player *player;
 
-	player = ft_malloc(sizeof(t_player));
-	player->pos.x = x;
-	player->pos.y = y;
-	player->dir = dir;
-	return (player);
-}
-
-void player_destroy(t_player *player)
-{
-	ft_free(player);
 }
