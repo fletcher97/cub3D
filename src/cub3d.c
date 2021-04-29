@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/04/25 07:13:27 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/04/25 07:22:35 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,33 +32,21 @@ static int init(t_cub3d *cub3d)
 	t_img		*img;
 
 	cub3d->mlx = mlx_init();
-
 	get_screen(&cub3d->screen);
 	s = &cub3d->screen;
 	s->win = mlx_new_window(cub3d->mlx, s->width, s->height, s->title);
-
 	s->img = ft_malloc(2 * sizeof(t_img));
 	if (!s->img)
 		return (1);
 	img = s->img;
-
 	img[0].img = mlx_new_image(cub3d->mlx, s->width, s->height);
-	img[0].addr = mlx_get_data_addr(img[0].img, &img[0].bpp, &img[0].line, &img[0].endian);
+	img[0].addr = mlx_get_data_addr(img[0].img, &img[0].bpp, &img[0].line,
+		&img[0].endian);
 	img[1].img = mlx_new_image(cub3d->mlx, s->width, s->height);
-	img[1].addr = mlx_get_data_addr(img[1].img, &img[1].bpp, &img[1].line, &img[1].endian);
+	img[1].addr = mlx_get_data_addr(img[1].img, &img[1].bpp, &img[1].line,
+		&img[1].endian);
 	return (0);
 }
-
-// void	debug(t_cub3d cub3d)
-// {
-// 	printf("cub3d{\n\tmlx: %p\n\timg: %p\n}\n", cub3d.mlx, cub3d.img);
-// 	printf("screen{\n\twin: %p\n\twidth: %d\n\theight: %d\n\ttitle: %s\n}\n",
-// 		cub3d.screen.win, cub3d.screen.width, cub3d.screen.height, cub3d.screen.title);
-// 	printf("img%d{\n\timg: %p\n\taddr: %p\n\tbpp: %d\n\tline: %d\n\tendian: %d\n}\n",
-// 		0, cub3d.img[0].img, cub3d.img[0].addr, cub3d.img[0].bpp, cub3d.img[0].line, cub3d.img[0].endian);
-// 	printf("img%d{\n\timg: %p\n\taddr: %p\n\tbpp: %d\n\tline: %d\n\tendian: %d\n}\n",
-// 		1, cub3d.img[1].img, cub3d.img[1].addr, cub3d.img[1].bpp, cub3d.img[1].line, cub3d.img[1].endian);
-// }
 
 void	terminate(t_cub3d cub3d)
 {
