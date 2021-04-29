@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 19:08:27 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/04/25 03:37:14 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/04/29 14:59:57 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ typedef struct	s_pos
 	int x;
 	int y;
 }				t_pos;
+
+typedef struct	s_vector
+{
+	t_pos pos1;
+	t_pos pos2;
+}				t_vector;
 
 typedef struct s_img
 {
@@ -44,11 +50,11 @@ typedef struct	s_map
 	int	**map;
 }				t_map;
 
-
 typedef	struct	s_player
 {
-	t_pos	pos;
-	double	dir;
+	t_pos		pos;
+	double		dir;
+	t_vector	mov;
 }				t_player;
 
 typedef struct	s_game
