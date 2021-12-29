@@ -142,8 +142,27 @@ LIBFT_ROOT := ${LIB_ROOT}libft/
 LIBFT_INC := ${LIBFT_ROOT}inc/
 LIBFT := ${LIBFT_ROOT}bin/libft.a
 
-INC_DIRS += ${LIBFT_INC}
-LIBS += -L${LIBFT_ROOT}bin -lft
+# MLX
+ifeq ($(shell uname), Linux)
+	MLX_LIB_ROOT := ${LIB_ROOT}minilibx-linux/
+	MLX_LIB_INC := ${MLX_LIB_ROOT}
+	MLX_LIB := ${MLX_LIB_ROOT}libmlx.a
+	LIBS := -L/usr/lib -lXext -lX11 -lm -lz
+else ifeq ($(shell uname), Darwin)
+	ifeq (${MLX}, opengl)
+		MLX_LIB_ROOT := ${LIB_ROOT}minilibx_opengl_20191021/
+		MLX_LIB_INC := ${MLX_LIB_ROOT}
+		LIBS := -framework OpenGL -framework AppKit -lz
+		MLX_LIB := ${MLX_LIB_ROOT}libmlx.dylib
+	else ifeq (${MLX}, mms)
+		MLX_LIB_ROOT := ${LIB_ROOT}minilibx_mms_20200219/
+		MLX_LIB_INC := ${MLX_LIB_ROOT}
+		MLX_LIB := ${MLX_LIB_ROOT}libmlx.a
+	endif
+endif
+
+INC_DIRS += ${LIBFT_INC} ${MLX_LIB_INC}
+LIBS += -L${LIBFT_ROOT} -lft -L${MLX_LIB_ROOT} -lmlx
 
 # Libraries for which to create default targets. All libraries in this list will
 # have targets created autimatically. The targets that are created are set in
@@ -178,7 +197,7 @@ DEFAULT_LIB_RULES += debug_tsan debug_tsan_re debug_msan debug_msan_re
 # Exemple:
 # DIRS := folder1/:folder2/
 # DIRS += folder1/:folder3/:folder4/
-DIRS := ./
+DIRS := ./:graphics/:listners/:map/:player/
 
 SRC_DIRS_LIST := $(addprefix ${SRC_ROOT},${DIRS})
 SRC_DIRS_LIST := $(foreach dl,${SRC_DIRS_LIST},$(subst :,:${SRC_ROOT},${dl}))
@@ -249,13 +268,15 @@ vpath %.d $(DEP_DIRS)
 all: ${BINS}
 
 .SECONDEXPANSION:
-${BIN_ROOT}${NAME1}: ${LIBFT} $$(call get_files,$${@F},$${OBJS_LIST})
+${BIN_ROOT}${NAME1}: ${LIBFT} ${MLX_LIB} $$(call get_files,$${@F},$${OBJS_LIST})
 	${AT}printf "\033[33m[CREATING ${@F}]\033[0m\n" ${BLOCK}
 	${AT}mkdir -p ${@D} ${BLOCK}
 	${AT}${CC} ${CFLAGS} ${INCS} ${ASAN_FILE}\
 		$(call get_files,${@F},${OBJS_LIST}) ${LIBS} -o $@ ${BLOCK}
 
 ${LIBFT}: $$(call get_lib_target,$${DEFAULT_LIBS},all) ;
+
+${MLX_LIB}: ; ${AT}make -C ${MLX_LIB_ROOT}
 
 ################################################################################
 # Clean Targets
