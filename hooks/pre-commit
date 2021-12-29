@@ -8,10 +8,10 @@ then
 fi
 
 echo "Testing norminette"
-test=$(norminette | grep Error)
+test=$(norminette src inc | grep Error)
 if [ "$test" != "" ]
 then
-	echo "ERROR: Norminette failed. Run \`norminette | grep Error\` to see what's wrong."
+	echo "ERROR: Norminette failed. Run \`norminette src inc | grep Error\` to see what's wrong."
 	exit 1
 fi
 
