@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 01:22:08 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/05/16 00:36:59 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/12/29 19:03:06 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_uc	*c1;
-	t_uc	*c2;
-	size_t	i;
+	const t_uc	*c1;
+	const t_uc	*c2;
+	size_t		i;
 
 	if (!n)
 		return (0);
-	c1 = (t_uc *)s1;
-	c2 = (t_uc *)s2;
+	c1 = (const t_uc *)s1;
+	c2 = (const t_uc *)s2;
 	i = 0;
 	while (i < n && c1[i] == c2[i])
 		i++;

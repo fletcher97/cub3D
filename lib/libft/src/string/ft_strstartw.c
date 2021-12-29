@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 02:35:47 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/25 21:50:45 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/12/29 18:40:43 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_strstartw(const char *str, const char *start)
 {
-	t_uc	*s;
-	t_uc	*d;
+	size_t	s;
+	size_t	d;
 
 	if (!str)
 		return (0);
@@ -23,12 +23,12 @@ int	ft_strstartw(const char *str, const char *start)
 		return (1);
 	if (ft_strlen(str) < ft_strlen(start))
 		return (0);
-	s = (t_uc *)str;
-	d = (t_uc *)start;
-	while (s[1] && d[1] && *s == *d)
+	s = 0;
+	d = 0;
+	while (str[s] && start[d] && str[s] == start[d])
 	{
 		s++;
 		d++;
 	}
-	return (*s == *d);
+	return (str[s] == start[d]);
 }

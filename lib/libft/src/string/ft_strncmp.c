@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 01:23:24 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/05/16 00:37:11 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/12/29 19:13:08 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		s1++;
 		s2++;
 	}
-	return (*(t_uc *)s1 - *(t_uc *)s2);
+	return (*(const t_uc *)s1 - *(const t_uc *)s2);
 }
