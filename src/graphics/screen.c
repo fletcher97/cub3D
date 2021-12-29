@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 18:55:16 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/29 19:38:33 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/12/29 19:55:07 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 void	next_frame(t_screen screen, void *mlx)
 {
-	t_img tmp;
+	t_img	tmp;
 
 	mlx_put_image_to_window(mlx, screen.win,
 		screen.img[1].img, 0, 0);

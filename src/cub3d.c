@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/04/25 07:22:35 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/12/29 19:52:03 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@
 #include "c3d_keys.h"
 #include "c3d_graphics.h"
 
-char play = 1;
-
-static int init(t_cub3d *cub3d)
+static int	init(t_cub3d *cub3d)
 {
 	t_screen	*s;
 	t_img		*img;
@@ -41,10 +39,10 @@ static int init(t_cub3d *cub3d)
 	img = s->img;
 	img[0].img = mlx_new_image(cub3d->mlx, s->width, s->height);
 	img[0].addr = mlx_get_data_addr(img[0].img, &img[0].bpp, &img[0].line,
-		&img[0].endian);
+			&img[0].endian);
 	img[1].img = mlx_new_image(cub3d->mlx, s->width, s->height);
 	img[1].addr = mlx_get_data_addr(img[1].img, &img[1].bpp, &img[1].line,
-		&img[1].endian);
+			&img[1].endian);
 	return (0);
 }
 
@@ -61,7 +59,7 @@ void	terminate(t_cub3d cub3d)
 
 int	stop(int key_code, void *param)
 {
-	t_cub3d cub3d;
+	t_cub3d	cub3d;
 
 	cub3d = *((t_cub3d *) param);
 	if (key_code == C3D_KEY_ESC)
@@ -72,34 +70,33 @@ int	stop(int key_code, void *param)
 	return (0);
 }
 
-int update(void *param)
+int	update(void *param)
 {
-	char	*frame;
-	static int frame_count = 0;
-	t_cub3d cub3d;
+	char		*frame;
+	static int	frame_count = 0;
+	t_cub3d		cub3d;
 
 	cub3d = *((t_cub3d *) param);
 	render(cub3d);
 	next_frame(cub3d.screen, cub3d.mlx);
 	frame_count++;
 	frame = ft_itoa(frame_count);
-	mlx_string_put(cub3d.mlx, cub3d.screen.win, cub3d.screen.width - (6 * ft_strlen(frame)), 10, 0x00000000, frame);
+	mlx_string_put(cub3d.mlx, cub3d.screen.win, cub3d.screen.width
+		- (6 * ft_strlen(frame)), 10, 0x00000000, frame);
 	ft_free(frame);
-	return 1;
+	return (1);
 }
 
-int main()
+int	main(void)
 {
-	t_cub3d cub3d;
+	t_cub3d	cub3d;
 
-	if(init(&cub3d))
+	if (init(&cub3d))
 		return (1);
-
 	mlx_key_hook(cub3d.screen.win, stop, &cub3d);
 	mlx_loop_hook(cub3d.mlx, update, &cub3d);
 	mlx_loop(cub3d.mlx);
-
-	return 0;
+	return (0);
 }
 
 // int main(int argc, char const *argv[])

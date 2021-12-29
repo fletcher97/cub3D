@@ -6,12 +6,12 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:37:16 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/03/11 03:05:24 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/12/29 19:58:52 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#ifndef C3D_MAP_H
+# define C3D_MAP_H
 
 int	load(const char *file);
 
