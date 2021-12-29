@@ -91,7 +91,7 @@ CFLAGS := -Wall -Wextra -Werror
 # Pedantic flags
 ifeq (${PEDANTIC},true)
 	CFLAGS += -Wpedantic -Werror=pedantic -pedantic-errors -Wcast-align
-	CFLAGS += -Wcast-qual -Wdisabled-optimization -Wformat=2 -Wuninitialized
+	CFLAGS += -Wdisabled-optimization -Wformat=2 -Wuninitialized
 	CFLAGS += -Winit-self -Wmissing-include-dirs -Wredundant-decls -Wshadow
 	CFLAGS += -Wstrict-overflow=5 -Wundef -fdiagnostics-show-option
 	CFLAGS += -fstack-protector-all -fstack-clash-protection
