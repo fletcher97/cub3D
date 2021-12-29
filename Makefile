@@ -147,13 +147,13 @@ ifeq ($(shell uname), Linux)
 	MLX_LIB_ROOT := ${LIB_ROOT}minilibx-linux/
 	MLX_LIB_INC := ${MLX_LIB_ROOT}
 	MLX_LIB := ${MLX_LIB_ROOT}libmlx.a
-	LIBS := -L/usr/lib -lXext -lX11 -lm -lz
+	MLX_DEPS := -L/usr/lib -lXext -lX11 -lm -lz
 else ifeq ($(shell uname), Darwin)
 	ifeq (${MLX}, opengl)
 		MLX_LIB_ROOT := ${LIB_ROOT}minilibx_opengl_20191021/
 		MLX_LIB_INC := ${MLX_LIB_ROOT}
-		LIBS := -framework OpenGL -framework AppKit -lz
 		MLX_LIB := ${MLX_LIB_ROOT}libmlx.dylib
+		MLX_DEPS := -framework OpenGL -framework AppKit -lz
 	else ifeq (${MLX}, mms)
 		MLX_LIB_ROOT := ${LIB_ROOT}minilibx_mms_20200219/
 		MLX_LIB_INC := ${MLX_LIB_ROOT}
@@ -162,7 +162,7 @@ else ifeq ($(shell uname), Darwin)
 endif
 
 INC_DIRS += ${LIBFT_INC} ${MLX_LIB_INC}
-LIBS += -L${LIBFT_ROOT}bin/ -lft -L${MLX_LIB_ROOT} -lmlx
+LIBS += -L${LIBFT_ROOT}bin/ -lft -L${MLX_LIB_ROOT} -lmlx ${MLX_DEPS}
 
 # Libraries for which to create default targets. All libraries in this list will
 # have targets created autimatically. The targets that are created are set in
