@@ -162,7 +162,7 @@ else ifeq ($(shell uname), Darwin)
 endif
 
 INC_DIRS += ${LIBFT_INC} ${MLX_LIB_INC}
-LIBS += -L${LIBFT_ROOT} -lft -L${MLX_LIB_ROOT} -lmlx
+LIBS += -L${LIBFT_ROOT}bin/ -lft -L${MLX_LIB_ROOT} -lmlx
 
 # Libraries for which to create default targets. All libraries in this list will
 # have targets created autimatically. The targets that are created are set in
