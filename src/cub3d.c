@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/29 19:52:03 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/12/29 22:27:30 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,15 @@ int	update(void *param)
 	return (1);
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	t_cub3d	cub3d;
 
+	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
+		printf("Cub3d must be run with the name of a single map file having the"
+			" extention \".cub\"\n");
+	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
+		return (1);
 	if (init(&cub3d))
 		return (1);
 	mlx_key_hook(cub3d.screen.win, stop, &cub3d);
