@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 18:55:16 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/04/25 00:08:32 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/12/29 19:38:33 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	char	*dst;
 
 	dst = img->addr + (y * img->line + x * (img->bpp / 8));
-	*(unsigned int*)dst = color;
+	*dst = color;
 }
 
 void	next_frame(t_screen screen, void *mlx)
