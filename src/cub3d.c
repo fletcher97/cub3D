@@ -78,18 +78,21 @@ int	update(void *param)
 
 int	main(int argc, char *argv[])
 {
-	t_cub3d	cub3d;
+	t_cub3d	*cub3d;
 
 	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
 		printf("Cub3d must be run with the name of a single map file having the"
 			" extention \".cub\"\n");
 	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
 		return (1);
-	if (!init(&cub3d))
+	cub3d = ft_calloc(1, sizeof(t_cub3d));
+	if (!cub3d)
 		return (1);
-	set_listners(&cub3d);
-	mlx_loop_hook(cub3d.mlx, update, &cub3d);
-	mlx_loop(cub3d.mlx);
+	if (!init(cub3d))
+		terminate(cub3d, 1);
+	set_listners(cub3d);
+	mlx_loop_hook(cub3d->mlx, update, cub3d);
+	mlx_loop(cub3d->mlx);
 	return (0);
 }
 
