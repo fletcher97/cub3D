@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/30 00:27:54 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/12/30 00:46:02 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include "ft_string.h"
 
 #include "cub3d.h"
+#include "c3d_error.h"
 #include "c3d_map.h"
-#include "c3d_keys.h"
 #include "c3d_listner.h"
 #include "c3d_graphics.h"
 
@@ -34,7 +34,7 @@ static int	init(t_cub3d *cub3d)
 	get_screen(&cub3d->screen);
 	s = &cub3d->screen;
 	s->win = mlx_new_window(cub3d->mlx, s->width, s->height, s->title);
-	s->img = ft_malloc(2 * sizeof(t_img));
+	s->img = ft_calloc(2, sizeof(t_img));
 	if (!s->img)
 		return (0);
 	img = s->img;
@@ -77,6 +77,8 @@ int	main(int argc, char *argv[])
 	if (!cub3d)
 		return (1);
 	if (!init(cub3d))
+		terminate(cub3d, 1);
+	if (!load_map(argv[1], cub3d))
 		terminate(cub3d, 1);
 	set_listners(cub3d);
 	mlx_loop_hook(cub3d->mlx, update, cub3d);
