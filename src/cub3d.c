@@ -22,6 +22,7 @@
 #include "cub3d.h"
 #include "c3d_map.h"
 #include "c3d_keys.h"
+#include "c3d_listner.h"
 #include "c3d_graphics.h"
 
 static int	init(t_cub3d *cub3d)
@@ -46,7 +47,7 @@ static int	init(t_cub3d *cub3d)
 	return (0);
 }
 
-void	terminate(t_cub3d cub3d)
+void	terminate(t_cub3d cub3d, int exit_code)
 {
 	mlx_destroy_image(cub3d.mlx, cub3d.screen.img[1].img);
 	mlx_destroy_image(cub3d.mlx, cub3d.screen.img[0].img);
@@ -55,19 +56,7 @@ void	terminate(t_cub3d cub3d)
 	ft_free(cub3d.screen.title);
 	mlx_destroy_display(cub3d.mlx);
 	ft_free(cub3d.mlx);
-}
-
-int	stop(int key_code, void *param)
-{
-	t_cub3d	cub3d;
-
-	cub3d = *((t_cub3d *) param);
-	if (key_code == C3D_KEY_ESC)
-		terminate(cub3d);
-	if (key_code == C3D_KEY_ESC)
-		exit(0);
-	printf("%d\n", key_code);
-	return (0);
+	exit(exit_code);
 }
 
 int	update(void *param)
@@ -98,7 +87,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (init(&cub3d))
 		return (1);
-	mlx_key_hook(cub3d.screen.win, stop, &cub3d);
+	set_listners(&cub3d);
 	mlx_loop_hook(cub3d.mlx, update, &cub3d);
 	mlx_loop(cub3d.mlx);
 	return (0);
