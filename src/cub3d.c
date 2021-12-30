@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/29 22:27:30 by mgueifao         ###   ########.fr       */
+/*   Updated: 2021/12/30 00:13:54 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	init(t_cub3d *cub3d)
 	s->win = mlx_new_window(cub3d->mlx, s->width, s->height, s->title);
 	s->img = ft_malloc(2 * sizeof(t_img));
 	if (!s->img)
-		return (1);
+		return (0);
 	img = s->img;
 	img[0].img = mlx_new_image(cub3d->mlx, s->width, s->height);
 	img[0].addr = mlx_get_data_addr(img[0].img, &img[0].bpp, &img[0].line,
@@ -44,7 +44,7 @@ static int	init(t_cub3d *cub3d)
 	img[1].img = mlx_new_image(cub3d->mlx, s->width, s->height);
 	img[1].addr = mlx_get_data_addr(img[1].img, &img[1].bpp, &img[1].line,
 			&img[1].endian);
-	return (0);
+	return (1);
 }
 
 void	terminate(t_cub3d cub3d, int exit_code)
@@ -85,7 +85,7 @@ int	main(int argc, char *argv[])
 			" extention \".cub\"\n");
 	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
 		return (1);
-	if (init(&cub3d))
+	if (!init(&cub3d))
 		return (1);
 	set_listners(&cub3d);
 	mlx_loop_hook(cub3d.mlx, update, &cub3d);
