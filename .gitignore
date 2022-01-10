@@ -6,3 +6,5 @@ a.out
 bin/
 *.ignore
 lib/minilib*
+.idea/
+cmake-build-debug/
