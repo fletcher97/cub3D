@@ -25,6 +25,7 @@
 #include "c3d_listener.h"
 #include "c3d_graphics.h"
 
+
 static int	init(t_cub3d *cub3d)
 {
 	t_screen	*s;
@@ -38,12 +39,13 @@ static int	init(t_cub3d *cub3d)
 	if (!s->img)
 		return (0);
 	img = s->img;
-	img[0].img = mlx_new_image(cub3d->mlx, s->width, s->height);
-	img[0].addr = mlx_get_data_addr(img[0].img, &img[0].bpp, &img[0].line,
-			&img[0].endian);
-	img[1].img = mlx_new_image(cub3d->mlx, s->width, s->height);
-	img[1].addr = mlx_get_data_addr(img[1].img, &img[1].bpp, &img[1].line,
-			&img[1].endian);
+	i = -1;
+	while (++i < 2)
+	{
+		img[i].img = mlx_new_image(cub3d->mlx, s->width, s->height);
+		img[i].addr = mlx_get_data_addr(img[i].img, &img[i].bpp, &img[i].line,
+										&img[i].endian);
+	}
 	return (1);
 }
 
@@ -70,6 +72,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
 	{
+		// to be dealt with error_handler
 		printf("Cub3d must be run with the name of a single map file having the"
 			" extention \".cub\"\n");
 		return (1);
