@@ -27,8 +27,9 @@ void	terminate(t_cub3d *cub3d, int exit_code)
 	if (cub3d->mlx && cub3d->screen.win)
 		mlx_destroy_window(cub3d->mlx, cub3d->screen.win);
 	ft_free(cub3d->screen.title);
-	if (cub3d->mlx)
-		mlx_destroy_display(cub3d->mlx);
+// Find mac compatible alternative
+//	if (cub3d->mlx)
+//		mlx_destroy_display(cub3d->mlx);
 	ft_free(cub3d->mlx);
 	ft_free(cub3d);
 	exit(exit_code);

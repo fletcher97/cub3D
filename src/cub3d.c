@@ -25,11 +25,15 @@
 #include "c3d_listener.h"
 #include "c3d_graphics.h"
 
+/*
+ *	No need to initialize the player vars because of the use of calloc.
+*/
 
 static int	init(t_cub3d *cub3d)
 {
 	t_screen	*s;
 	t_img		*img;
+	int			i;
 
 	cub3d->mlx = mlx_init();
 	get_screen(&cub3d->screen);
@@ -40,7 +44,7 @@ static int	init(t_cub3d *cub3d)
 		return (0);
 	img = s->img;
 	i = -1;
-	while (++i < 2)
+	while (++i < NB_IMGS)
 	{
 		img[i].img = mlx_new_image(cub3d->mlx, s->width, s->height);
 		img[i].addr = mlx_get_data_addr(img[i].img, &img[i].bpp, &img[i].line,
@@ -89,17 +93,3 @@ int	main(int argc, char *argv[])
 	mlx_loop(cub3d->mlx);
 	return (0);
 }
-
-// int main(int argc, char const *argv[])
-// {
-// 	if (argc < 2 || argc > 3)
-// 		printf("Usage: ./cub3D <path-to-map> [--save]\n");
-// 	if (argc < 2 || argc > 3)
-// 		return (-1);
-// 	//Map parsing
-// 	if (!load(argv[1]))
-// 		printf("error\n");
-// 	else
-// 		printf("success\n");
-// 	return 0;
-// }

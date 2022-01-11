@@ -21,12 +21,6 @@ typedef struct s_pos
 	double	y;
 }				t_pos;
 
-typedef struct s_vector
-{
-	t_pos	pos1;
-	t_pos	pos2;
-}				t_vector;
-
 typedef struct s_img
 {
 	void	*img;
@@ -38,12 +32,12 @@ typedef struct s_img
 
 typedef struct s_tex
 {
-	int **NO;
-	int **SO;
-	int **EA;
-	int **WE;
-	int C;
-	int F;
+	int **no;
+	int **so;
+	int **ea;
+	int **we;
+	int c;
+	int f;
 }				t_tex;
 
 typedef struct s_screen
@@ -61,17 +55,24 @@ typedef struct s_map
 	char	**map;
 }				t_map;
 
+/*
+ * x_mov, y_mov and cam_rot represent horizontal and vertical movement and
+ * cam_rotation flags (-1, 0, 1)
+*/
+
 typedef struct s_player
 {
 	t_pos		pos;
 	double		dir;
-	t_vector	mov;
+	int			x_mov;
+	int			y_mov;
+	int 		cam_rot;
 }				t_player;
 
 typedef struct s_game
 {
-	int			width;
-	int			height;
+	int			width; //unnecessary?
+	int			height; //unnecessary?
 	t_player	player;
 	t_map		map;
 }				t_game;

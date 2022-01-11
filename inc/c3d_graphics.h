@@ -13,6 +13,8 @@
 #ifndef C3D_GRAPHICS_H
 # define C3D_GRAPHICS_H
 
+# define NB_IMGS 2
+
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	get_screen(t_screen *screen);
 void	next_frame(t_screen screen, void *mlx);
