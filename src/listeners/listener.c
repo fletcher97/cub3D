@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   listner.c                                          :+:      :+:    :+:   */
+/*   listener.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsantos <jsantos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 23:01:15 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/30 00:04:18 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/11 18:31:33 by jsantos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 
 #include "cub3d.h"
-#include "c3d_listner.h"
+#include "c3d_listener.h"
 
-void	set_listners(t_cub3d *cub3d)
+void	set_listeners(t_cub3d *cub3d)
 {
 	mlx_hook(cub3d->screen.win, MLX_DESTROY_NOTIFY, 1L, stop, &cub3d);
 	mlx_hook(cub3d->screen.win, MLX_KEY_PRESS, (1L << 0), on_key_press, &cub3d);

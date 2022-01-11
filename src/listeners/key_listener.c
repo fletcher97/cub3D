@@ -12,6 +12,8 @@
 
 #include "cub3d.h"
 #include "c3d_keys.h"
+#include <stdio.h>
+#include "c3d_error.h"
 
 int	stop(void *param)
 {
@@ -28,7 +30,7 @@ int	on_key_press(int key_code, void *param)
 
 	cub3d = ((t_cub3d *) param);
 	if (key_code == C3D_KEY_ESC)
-		terminate(cub3d);
+		terminate(cub3d, 0);
 	printf("%d\n", key_code);
 	return (1);
 }

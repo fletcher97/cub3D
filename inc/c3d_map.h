@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   c3d_map.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsantos <jsantos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:37:16 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/29 19:58:52 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/11 18:15:30 by jsantos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef C3D_MAP_H
 # define C3D_MAP_H
 
-int	load(const char *file);
+# include "cub3d.h"
+
+int    load_map(const char *file, t_cub3d *cub3d);
 
 #endif

@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "c3d_error.h"
+#include "mlx.h"
+#include "ft_stdlib.h"
 
 void	terminate(t_cub3d *cub3d, int exit_code)
 {

@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_memutils.h"
+#include <stdlib.h>
+
 void	ft_free_matrix_s(void **matrix, int count, void (*del)(void *))
 {
 	int	i;
-
+    
 	if (!matrix || !del)
 		return ;
 	i = -1;

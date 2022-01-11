@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsantos <jsantos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/30 00:46:02 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/11 18:42:07 by jsantos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include "cub3d.h"
 #include "c3d_error.h"
 #include "c3d_map.h"
-#include "c3d_listner.h"
+#include "c3d_listener.h"
 #include "c3d_graphics.h"
 
 static int	init(t_cub3d *cub3d)
@@ -69,10 +69,11 @@ int	main(int argc, char *argv[])
 	t_cub3d	*cub3d;
 
 	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
+	{
 		printf("Cub3d must be run with the name of a single map file having the"
 			" extention \".cub\"\n");
-	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
 		return (1);
+	}
 	cub3d = ft_calloc(1, sizeof(t_cub3d));
 	if (!cub3d)
 		return (1);
@@ -80,7 +81,7 @@ int	main(int argc, char *argv[])
 		terminate(cub3d, 1);
 	if (!load_map(argv[1], cub3d))
 		terminate(cub3d, 1);
-	set_listners(cub3d);
+	set_listeners(cub3d);
 	mlx_loop_hook(cub3d->mlx, update, cub3d);
 	mlx_loop(cub3d->mlx);
 	return (0);

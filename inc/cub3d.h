@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsantos <jsantos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 19:08:27 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/29 20:00:10 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/11 18:59:16 by jsantos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 typedef struct s_pos
 {
-	int	x;
-	int	y;
+	double	x;
+	double	y;
 }				t_pos;
 
 typedef struct s_vector
@@ -36,6 +36,16 @@ typedef struct s_img
 	int		endian;
 }				t_img;
 
+typedef struct s_tex
+{
+	int **NO;
+	int **SO;
+	int **EA;
+	int **WE;
+	int C;
+	int F;
+}				t_tex;
+
 typedef struct s_screen
 {
 	void	*win;
@@ -43,11 +53,12 @@ typedef struct s_screen
 	int		height;
 	char	*title;
 	t_img	*img;
+	t_tex	textures;
 }				t_screen;
 
 typedef struct s_map
 {
-	int	**map;
+	char	**map;
 }				t_map;
 
 typedef struct s_player
