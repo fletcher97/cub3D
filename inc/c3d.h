@@ -14,12 +14,17 @@
 # define CUB3D_H
 
 # include "c3d_player.h"
+# include <stdbool.h>
 
 typedef struct s_pos
 {
 	double	x;
 	double	y;
 }				t_pos;
+
+/*
+ *	Struct that contains the data of the images added as textures.
+*/
 
 typedef struct s_img
 {
@@ -50,14 +55,10 @@ typedef struct s_screen
 	t_tex	textures;
 }				t_screen;
 
-typedef struct s_map
-{
-	char	**map;
-}				t_map;
-
 /*
  * x_mov, y_mov and cam_rot represent horizontal and vertical movement and
- * cam_rotation flags (-1, 0, 1)
+ * cam_rotation flags (-1, 0, 1), according to which keys are being pressed
+ * dir represents the angle of the camera rotation
 */
 
 typedef struct s_player
@@ -71,10 +72,10 @@ typedef struct s_player
 
 typedef struct s_game
 {
-	int			width; //unnecessary?
-	int			height; //unnecessary?
 	t_player	player;
-	t_map		map;
+	char		**map;
+	int			columns;
+	int			rows;
 }				t_game;
 
 typedef struct s_cub3d

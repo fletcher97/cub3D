@@ -12,7 +12,7 @@
 
 #include "mlx.h"
 
-#include "cub3d.h"
+#include "c3d.h"
 #include "c3d_listener.h"
 
 void	set_listeners(t_cub3d *cub3d)

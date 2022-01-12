@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "c3d.h"
 #include "c3d_keys.h"
 #include <stdio.h>
 #include "c3d_error.h"

@@ -13,7 +13,7 @@
 #ifndef C3D_ERROR_H
 # define C3D_ERROR_H
 
-# include "cub3d.h"
+# include "c3d.h"
 
 void	terminate(t_cub3d *cub3d, int exit_code);
 

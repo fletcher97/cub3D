@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "mlx.h"
-#include "cub3d.h"
+#include "c3d.h"
 #include "ft_string.h"
 
 void	get_screen(t_screen *screen)

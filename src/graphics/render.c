@@ -15,7 +15,7 @@
 #include "mlx.h"
 #include "ft_stdlib.h"
 
-#include "cub3d.h"
+#include "c3d.h"
 #include "c3d_graphics.h"
 
 static void	render_ceil(t_screen screen, int color, void *mlx)

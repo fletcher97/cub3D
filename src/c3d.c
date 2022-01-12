@@ -19,7 +19,7 @@
 #include "ft_conv.h"
 #include "ft_string.h"
 
-#include "cub3d.h"
+#include "c3d.h"
 #include "c3d_error.h"
 #include "c3d_map.h"
 #include "c3d_listener.h"
