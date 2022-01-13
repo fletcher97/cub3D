@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 04:46:51 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/29 19:58:09 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/13 23:03:59 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@
 #  define C3D_KEY_RSHIFT 65506
 #  define C3D_KEY_RCTRL 65508
 #  define C3D_KEY_ROPT_ALT 65514
+#  define C3D_KEY_LEFT_ARROW 65361
+#  define C3D_KEY_UP_ARROW 65362
+#  define C3D_KEY_RIGHT_ARROW 65363
+#  define C3D_KEY_DOWN_ARROW 65364
 #  define C3D_KEY_1 49
 #  define C3D_KEY_2 50
 #  define C3D_KEY_3 51
@@ -57,10 +61,6 @@
 #  define C3D_KEY_J 106
 #  define C3D_KEY_K 107
 #  define C3D_KEY_L 108
-#  define C3D_KEY_
-#  define C3D_KEY_
-#  define C3D_KEY_
-#  define C3D_KEY_
 #  define C3D_KEY_
 #  define C3D_KEY_
 #  define C3D_KEY_
