@@ -43,6 +43,10 @@ NAME1 := cub3D
 # by space.
 NAMES := ${NAME1}
 
+# Minilibx to be selected when running in mac.
+# Possible values are: mms, opengl (default: mms)
+MLX = mms
+
 ################################################################################
 # Configs
 ################################################################################
@@ -92,7 +96,7 @@ ifeq (${PEDANTIC},true)
 	CFLAGS += -Wcast-qual -Wdisabled-optimization -Wformat=2 -Wuninitialized
 	CFLAGS += -Winit-self -Wmissing-include-dirs -Wredundant-decls -Wshadow
 	CFLAGS += -Wstrict-overflow=5 -Wundef -fdiagnostics-show-option
-	CFLAGS += -fstack-protector-all -fstack-clash-protection
+	#CFLAGS += -fstack-protector-all -fstack-clash-protection
 	ifeq (${CC},gcc)
 		CFLAGS += -Wformat-signedness -Wformat-truncation=2 -Wformat-overflow=2
 		CFLAGS += -Wlogical-op -Wstringop-overflow=4
@@ -197,7 +201,7 @@ DEFAULT_LIB_RULES += debug_tsan debug_tsan_re debug_msan debug_msan_re
 # Exemple:
 # DIRS := folder1/:folder2/
 # DIRS += folder1/:folder3/:folder4/
-DIRS := ./:graphics/:listners/:map/:player/
+DIRS := ./:graphics/:listeners/:map/:player/:error/
 
 SRC_DIRS_LIST := $(addprefix ${SRC_ROOT},${DIRS})
 SRC_DIRS_LIST := $(foreach dl,${SRC_DIRS_LIST},$(subst :,:${SRC_ROOT},${dl}))
@@ -389,7 +393,7 @@ compile-test: ${addprefix compile-test/,${NAMES}}
 .PHONY: re all
 
 ################################################################################
-# Constantes
+# Constants
 ################################################################################
 
 NULL =

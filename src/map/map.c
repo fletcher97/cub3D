@@ -39,40 +39,43 @@ void	init_parsing_variables(t_cub3d *cub3d)
 	cub3d->screen.textures.c = 0;
 	cub3d->screen.textures.f = 0;
 	cub3d->game.map = NULL;
-	cub3d->game.columns = 0;
+	cub3d->game.cols = 0;
 	cub3d->game.rows = 0;
 }
 
-int load_map(const char *file, t_cub3d *cub3d)
+/*
+ *	Status can indicate error (-1), parsing header (0) or parsing map (1).
+*/
+
+void	load_map(t_cub3d *cub3d, const char *file)
 {
     int     fd;
     int     status;
     char    *line;
 	size_t	line_length;
-	int 		result;///these both could be replaced by the parsing_map
-	bool		ready_to_parse_map;
 
     fd = open(file, O_RDONLY);
     if (fd == -1)
-        terminate(cub3d, 1);
+        terminate(cub3d, ERROR_READING_MAP_FILE);
     init_parsing_variables(cub3d);
-	ready_to_parse_map = false;
+    status = 0;
 	while (get_next_line(fd, &line))
 	{
 		line_length = ft_strlen(line);
-		if (!line || line_length == 0)
-			result = handle_empty_line(cub3d, line, ready_to_parse_map);
-		else if (!ready_to_parse_map)
-			result = parse_header(cub3d->mlx, &cub3d->screen.textures, line, 0);
+		if (!line || !line_length)
+			status = handle_empty_line(cub3d, line, status);
+		else if (!status)
+			status = parse_header(cub3d->mlx, &cub3d->screen.textures, line, 0);
 		else
-			result = parse_map(cub3d, line, line_length);
-		if (result < 0)
-			free_parser_vars(cub3d, line, result);
+			status = parse_map(cub3d, &cub3d->game, line, line_length);
+		ft_free(line);
+		line = NULL;
+		if (status < 0)
+			terminate(cub3d, status);
 	}
-	if (!fill_map_with_space_chars(&cub3d->map))
-		free_vars_and_exit(FAILED_MALLOC, cub3d);
-	if (!is_map_valid(&cub3d->map))
-		free_vars_and_exit(INVALID_MAP, cub3d);
+	fill_map_with_space_chars(cub3d, &cub3d->game);
+	if (!is_map_valid(&cub3d->game))
+		terminate(cub3d, INVALID_MAP);
 }
 
 /*
@@ -135,8 +138,8 @@ int	parse_map(t_cub3d *cub3d, t_game *game, char *line, int line_length)
 	static size_t	i = 0;
 	char			**new_matrix;
 
-	if (line_length > game->columns)
-		game->columns = line_length;
+	if (line_length > game->cols)
+		game->cols = line_length;
 	new_matrix = ft_realloc(game->map, i, i + 1);
 	if (new_matrix == game->map)
 		terminate(cub3d, FAILED_MALLOC);

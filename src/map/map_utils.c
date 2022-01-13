@@ -2,16 +2,23 @@
 #include "ft_stdlib.h"
 #include "ft_string.h"
 #include "errors.h"
+#include "c3d_error.h"
 
-int	handle_empty_line(t_cub3d *cub3d, char *line, bool parsing_map)
+/*
+ *	According to the subject, there should be no empty lines on the map. Hence,
+ *	if the status variable indicates that the program is already parsing the map
+ *	and it has already read a non-empty line (which would set the cols to a
+ *	non-zero value), then the map is invalid.
+*/
+
+int	handle_empty_line(t_cub3d *cub3d, char *line, int status)
 {
 	if (!line)
 		return (FAILED_MALLOC);
-	ft_free(line);
-	if (parsing_map && cub3d->game.columns != 0)
+	if (status && cub3d->game.cols != 0)
 		return (INVALID_MAP);
 	else
-		return (EMPTY_LINE);
+		return (status);
 }
 
 /*
@@ -54,26 +61,33 @@ void	free_split(char **temp)
 }
 
 
+/*
+ *	Makes sure every line on the map has the same length, by filling with space
+ *	chars all the lines until reaching the length of the biggest one. This will
+ *	make it easier to check the map's validity.
+*/
 
-int	fill_map_with_space_chars(t_map *map)
+void	fill_map_with_space_chars(t_cub3d *cub3d, t_game *game)
 {
 	int 	row;
-	int 	difference;
+	int		len;
+	char	*new_line;
+	int		i;
 
 	row = -1;
-	while (++row < map->rows)
+	while (++row < game->rows)
 	{
-		difference = map->columns - ft_strlen(map->matrix[row]);
-		if (difference)
-			map->matrix[row] = ft_add_chars(map->matrix[row], ' ', difference);
-		if (!map->matrix[row])
-			return (0);
+		len = (int)ft_strlen(game->map[row]);
+		if (game->cols - len)
+		{
+			new_line = ft_realloc(game->map[row], len + 1, game->cols + 1);
+			if (new_line == game->map[row])
+				terminate(cub3d, FAILED_MALLOC);
+			i = len;
+			while (i < game->cols)
+				new_line[i] = ' ';
+			new_line[i] = '\0';
+			game->map[row] = new_line;
+		}
 	}
-	return (1);
-}
-
-void	free_parser_vars(t_cub3d *cub3d, char *line, int result)
-{
-	free(line);
-	free_vars_and_exit(result, cub3d);
 }

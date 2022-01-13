@@ -35,3 +35,9 @@ void	terminate(t_cub3d *cub3d, int exit_code)
 	ft_free(cub3d);
 	exit(exit_code);
 }
+
+/*
+ * ILLEGAL_INPUT message:
+ * printf("Cub3d must be run with the name of a single map file having the extention \".cub\"\n");
+*/
+

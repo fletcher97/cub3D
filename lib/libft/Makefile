@@ -94,7 +94,7 @@ ifeq (${PEDANTIC},true)
 	CFLAGS += -Wdisabled-optimization -Wformat=2 -Wuninitialized
 	CFLAGS += -Winit-self -Wmissing-include-dirs -Wredundant-decls -Wshadow
 	CFLAGS += -Wstrict-overflow=5 -Wundef -fdiagnostics-show-option
-	CFLAGS += -fstack-protector-all -fstack-clash-protection
+	#CFLAGS += -fstack-protector-all -fstack-clash-protection
 	ifeq (${CC},gcc)
 		CFLAGS += -Wformat-signedness -Wformat-truncation=2 -Wformat-overflow=2
 		CFLAGS += -Wlogical-op -Wstringop-overflow=4
@@ -181,7 +181,7 @@ SRC_ROOT := src/
 # DIRS := folder1/:folder2/
 # DIRS += folder1/:folder3/:folder4/
 DIRS := ctype/:data_struct/list/:norm/:stdio/:stdlib/:string/:conv/:$\
-	data_struct/stack/:sort/:data_struct/tree/
+	data_struct/stack/:sort/:data_struct/tree/:memutils/:math/
 
 SRC_DIRS_LIST := $(addprefix ${SRC_ROOT},${DIRS})
 SRC_DIRS_LIST := $(foreach dl,${SRC_DIRS_LIST},$(subst :,:${SRC_ROOT},${dl}))

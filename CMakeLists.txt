@@ -23,7 +23,7 @@ find_library(LIBMLX
         NAMES libmlx.dylib
         PATHS ./lib/minilibx_mms_20200219)
 
-file(GLOB SRC src/*.c src/*/*.c lib/libft/srcs/*/*.c)
+file(GLOB SRC src/*.c src/*/*.c lib/libft/src/*/*.c)
 file(GLOB INC inc/*.h lib/libft/include/libft.h lib/minilibx_mms_20200219/mlx.h)
 
 add_executable(cub3d_mandatory ${SRC} ${INC})

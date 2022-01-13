@@ -51,7 +51,7 @@ int	load_color(int *color, char *comma_sep_channels)
 			free_split(temp);
 			return (INVALID_MAP);
 		}
-		*color += number << (BITS_IN_BYTE * (2 - i));
+		*color += number << (BITS_PER_BYTE * (2 - i));
 	}
 	free_split(temp);
 	return (SUCCESSFUL_IMPORT);

@@ -21,62 +21,64 @@ int	load_tex(void *mlx, int ***texture, char *path)
 	if (!tmp.img)
 		return (NO_IMG);
 	tmp.addr = mlx_get_data_addr(tmp.img, &tmp.bpp, &tmp.line, &tmp.endian);
-	*texture = voidp_to_matrix(tmp, img_height, img_width);
+	if (texture_init(texture))
+		voidp_to_matrix(tmp, texture, img_height, img_width);
 	mlx_destroy_image(mlx, tmp.img);
 	if (!*texture)
 		return (FAILED_MALLOC);
-	else
-		return (SUCCESSFUL_IMPORT);
+	return (SUCCESSFUL_IMPORT);
 }
 
 /*
  *	Imports the pixel values (loaded by mlx) from a void * to an int matrix.
 */
 
-int **voidp_to_matrix(t_img tmp, int height, int width)
+void	voidp_to_matrix(t_img tmp, int ***texture, int height, int width)
 {
-	int x;
-	int	y;
-	int	**tex;
+	int		x;
+	int		y;
+	char	*c;
 
-	tex = texture_init();
-	if (tex)
+	if (*texture)
 	{
 		y = -1;
 		while (++y < height)
 		{
 			x = -1;
 			while (++x < width)
-				tex[y][x] = *(int *)(tmp.addr +
-						(y * tmp.line + (x * (tmp.bpp / BITS_IN_BYTE))));
+			{
+				c = tmp.addr + (y * tmp.line + (x * (tmp.bpp / BITS_PER_BYTE)));
+				(*texture)[y][x] = c[0] << 24 | c[1] << 16 | c[2] << 8 | c[3];
+			}
 		}
 	}
-	return (tex);
 }
+
+
+
 
 /*
 **	Initiates the matrices that are going to store the textures.
 */
 
-int	**texture_init(void)
+int	texture_init(int ***tex)
 {
 	int	i;
-	int	**image;
 
-	image = ft_calloc(TEXTURE_SIZE * 5 + NULL_TERM, sizeof(int *));
-	if (!image)
-		///error handling
+	*tex = ft_calloc(TEXTURE_SIZE * 5 + NULL_TERM, sizeof(int *));
+	if (!*tex)
+		return (0);
 	i = 0;
 	while (i < TEXTURE_SIZE * 5)
 	{
-		image[i] = ft_calloc(TEXTURE_SIZE * 5, sizeof(int));
-		if (!image[i])
+		(*tex)[i] = ft_calloc(TEXTURE_SIZE * 5, sizeof(int));
+		if (!(*tex)[i])
 		{
-			ft_free_matrix((void**)image, NULL);
-			///error handling
+			ft_free_matrix((void**)*tex, NULL);
+			return (0);
 		}
 		i++;
 	}
-	image[i] = NULL;
-	return (image);
+	*tex[i] = NULL;
+	return (1);
 }

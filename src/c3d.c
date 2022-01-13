@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "mlx.h"
 
@@ -24,12 +23,13 @@
 #include "c3d_map.h"
 #include "c3d_listener.h"
 #include "c3d_graphics.h"
+#include "errors.h"
 
 /*
  *	No need to initialize the player vars because of the use of calloc.
 */
 
-static int	init(t_cub3d *cub3d)
+void	init(t_cub3d *cub3d)
 {
 	t_screen	*s;
 	t_img		*img;
@@ -41,7 +41,7 @@ static int	init(t_cub3d *cub3d)
 	s->win = mlx_new_window(cub3d->mlx, s->width, s->height, s->title);
 	s->img = ft_calloc(2, sizeof(t_img));
 	if (!s->img)
-		return (0);
+		terminate(cub3d, FAILED_MALLOC);
 	img = s->img;
 	i = -1;
 	while (++i < NB_IMGS)
@@ -50,9 +50,9 @@ static int	init(t_cub3d *cub3d)
 		img[i].addr = mlx_get_data_addr(img[i].img, &img[i].bpp, &img[i].line,
 										&img[i].endian);
 	}
-	return (1);
 }
 
+///still need to understand how you implemented this one
 int	update(void *param)
 {
 	char		*frame;
@@ -75,19 +75,12 @@ int	main(int argc, char *argv[])
 	t_cub3d	*cub3d;
 
 	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
-	{
-		// to be dealt with error_handler
-		printf("Cub3d must be run with the name of a single map file having the"
-			" extention \".cub\"\n");
-		return (1);
-	}
+		terminate(NULL, ILLEGAL_INPUT);
 	cub3d = ft_calloc(1, sizeof(t_cub3d));
 	if (!cub3d)
-		return (1);
-	if (!init(cub3d))
-		terminate(cub3d, 1);
-	if (!load_map(argv[1], cub3d))
-		terminate(cub3d, 1);
+		terminate(cub3d, FAILED_MALLOC);
+	init(cub3d);
+	load_map(cub3d, argv[1]);
 	set_listeners(cub3d);
 	mlx_loop_hook(cub3d->mlx, update, cub3d);
 	mlx_loop(cub3d->mlx);

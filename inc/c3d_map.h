@@ -23,8 +23,9 @@
 # define SUCCESSFUL_IMPORT			1
 # define TEXTURE_SIZE				32
 # define NULL_TERM					1
-# define BITS_IN_BYTE				8
+# define BITS_PER_BYTE				8
 # define NUMBER_OF_CHANNELS			3
+# define CENTER_OFFSET				0.5
 
 /*
 ** ELEMENT TYPES ON THE MAP
@@ -39,20 +40,18 @@ typedef enum e_graphics {
 	FLOOR	= 6,
 }	t_graphics;
 
-int		load_map(const char *file, t_cub3d *cub3d);
-int		handle_empty_line(t_cub3d *cub3d, char *line, bool parsing_map);
+void	load_map(t_cub3d *cub3d, const char *file);
+int		handle_empty_line(t_cub3d *cub3d, char *line, int status);
 int		parse_header(void *mlx, t_tex *textures, char *line, int flag);
 int		check_element_id(char *str, int *id);
 int		load_tex(void *mlx, int ***texture, char *path);
-int		**voidp_to_matrix(t_img tmp, int height, int width);
-int		**texture_init(void);
+int		texture_init(int ***tex);
+void	voidp_to_matrix(t_img tmp, int ***texture, int height, int width);
 int		ft_strchr_all(char *str, char chr);
 int		load_color(int *color, char *comma_sep_channels);
 int		parse_map(t_cub3d *cub3d, t_game *game, char *line, int line_length);
-//recheck whether all of them are being used
-int		fill_map_with_space_chars(t_map *map);
-int	is_map_valid(t_map *map);
+void	fill_map_with_space_chars(t_cub3d *cub3d, t_game *game);
+int		is_map_valid(t_game *game);
 void	free_split(char **temp);
-void	free_parser_vars(t_cub3d *cub3d, char *line, int result);
 
 #endif
