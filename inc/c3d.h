@@ -59,13 +59,11 @@ typedef struct s_screen
  * x_mov, y_mov and cam_rot represent horizontal and vertical movement and
  * cam_rotation flags (-1, 0, 1), according to which keys are being pressed
  * dir represents the angle of the camera rotation
- * init_dir is the initial direction (provided by the map)
 */
 
 typedef struct s_player
 {
 	t_pos		pos;
-	char		init_dir;
 	double		dir;
 	int			x_mov;
 	int			y_mov;

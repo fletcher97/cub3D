@@ -8,9 +8,19 @@
 
 int	save_player_position(t_game *game, int row, int column)
 {
+	char	orientation;
+
+	orientation = game->map[row][column];
 	game->player.pos.x = column + CENTER_OFFSET;
 	game->player.pos.y = row + CENTER_OFFSET;
-	game->player.init_dir = game->map[row][column];
+	if (orientation == 'E')
+		game->player.dir = 0.0;
+	else if (orientation == 'N')
+		game->player.dir = 90.0;
+	else if (orientation == 'W')
+		game->player.dir = 180.0;
+	else if (orientation == 'S')
+		game->player.dir = 270.0;
 	return (1);
 }
 
