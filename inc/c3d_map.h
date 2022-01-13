@@ -24,6 +24,7 @@
 # define TEXTURE_SIZE				32
 # define NULL_TERM					1
 # define BITS_IN_BYTE				8
+# define NUMBER_OF_CHANNELS			3
 
 /*
 ** ELEMENT TYPES ON THE MAP
@@ -45,11 +46,13 @@ int		check_element_id(char *str, int *id);
 int		load_tex(void *mlx, int ***texture, char *path);
 int		**voidp_to_matrix(t_img tmp, int height, int width);
 int		**texture_init(void);
+int		ft_strchr_all(char *str, char chr);
+int		load_color(int *color, char *comma_sep_channels);
+int		parse_map(t_cub3d *cub3d, t_game *game, char *line, int line_length);
 //recheck whether all of them are being used
-void	free_split(char **temp);
-int		is_ready_to_parse_map(int *loaded);
 int		fill_map_with_space_chars(t_map *map);
-void	free_parser_vars(t_game *vars, t_list *linked_list, char *line, int result);
-int	load_mini_map_textures(t_game *vars);
+int	is_map_valid(t_map *map);
+void	free_split(char **temp);
+void	free_parser_vars(t_cub3d *cub3d, char *line, int result);
 
 #endif

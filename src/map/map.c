@@ -23,6 +23,7 @@
 #include "c3d_map.h"
 #include "c3d_error.h"
 #include "errors.h"
+#include "ft_memutils.h"
 
 /*
 **	Initializes and sets to NULL and 0 the variables used during the parsing of
@@ -66,7 +67,7 @@ int load_map(const char *file, t_cub3d *cub3d)
 		else
 			result = parse_map(cub3d, line, line_length);
 		if (result < 0)
-			free_parser_vars(cub3d, linked_list, line, result);
+			free_parser_vars(cub3d, line, result);
 	}
 	if (!fill_map_with_space_chars(&cub3d->map))
 		free_vars_and_exit(FAILED_MALLOC, cub3d);
@@ -93,6 +94,7 @@ int load_map(const char *file, t_cub3d *cub3d)
 */
 /// TO-DO: output error message in case of duplicate entries (it is given an error
 /// return value, but the specific error that occurs is not known to the calling function
+///TO-DO: free the split in the various instances
 int parse_header(void *mlx, t_tex *tex, char *line, int flag)
 {
 	char        **aux;
@@ -123,50 +125,23 @@ int parse_header(void *mlx, t_tex *tex, char *line, int flag)
 }
 
 /*
-**	Parses through the file and saves every read line to a new node on a linked
-**	list. Before doing so, it does check if the size of every line is the same,
-**	because the program requires a rectangular map.
+ *	Parses through the file and saves every read line to a reallocated matrix.
+ *	Before doing so, it does check if the size of every line is the same, saving
+ *	the biggest line length found so far.
 */
 
-int	parse_map_to_list(t_game *vars, t_list **list, char *line, int line_length)
+int	parse_map(t_cub3d *cub3d, t_game *game, char *line, int line_length)
 {
-	t_list	*temp;
+	static size_t	i = 0;
+	char			**new_matrix;
 
-	if (line_length > vars->map.columns)
-		vars->map.columns = line_length;
-	temp = ft_lstnew(line);
-	if (!temp)
-		return (FAILED_MALLOC);
-	ft_lstadd_back(list, temp);
-	vars->map.rows++;
+	if (line_length > game->columns)
+		game->columns = line_length;
+	new_matrix = ft_realloc(game->map, i, i + 1);
+	if (new_matrix == game->map)
+		terminate(cub3d, FAILED_MALLOC);
+	new_matrix[++i] = line;
+	game->map = new_matrix;
+	game->rows++;
 	return (SUCCESSFUL_IMPORT);
-}
-
-/*
-**	Moves the lines' content to a matrix and frees the linked list.
-*/
-
-char	**list_to_matrix(t_game *vars, t_list *line_list, int lines)
-{
-	t_list	*temp;
-	int		i;
-	char	**matrix;
-
-	matrix = malloc(sizeof(char *) * lines);
-	if (!matrix)
-	{
-		free_list(line_list);
-		free_vars_and_exit(FAILED_MALLOC, vars);
-	}
-	i = 0;
-	while (i < lines)  ///for some reason, on lldb, lines are passed as a huge number (where are they set??),
-/// and after i = 14, line_list is probably NULL, meaning that callint line_list->next will segfault
-	{
-		temp = line_list->next;
-		matrix[i] = line_list->content;
-		free(line_list);
-		line_list = temp;
-		i++;
-	}
-	return (matrix);
 }

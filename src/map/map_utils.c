@@ -39,7 +39,7 @@ int	check_element_id(char *str, int *id)
 }
 
 /*
-**	Frees the temporary string array created by parse_textures_and_colors.
+ *	Frees the temporary string array created by parse_header and load_colors.
 */
 
 void	free_split(char **temp)
@@ -47,29 +47,12 @@ void	free_split(char **temp)
 	int iter;
 
 	iter = -1;
-	while (temp[++iter])
-		free(temp[iter]);
-	free(temp);
+	while (temp && temp[++iter])
+		ft_free(temp[iter]);
+	ft_free(temp);
+	temp = NULL;
 }
 
-/*
-**	Checks whether all the textures and colors were loaded. Note that both the
-**	'load_texture' and 'load_color' functions change its respective vars->loaded
-**	index on successful loading).
-*/
-
-int	is_ready_to_parse_map(int *loaded)
-{
-	int iter;
-
-	iter = -1;
-	while (++iter < NUM_OF_ELEMENTS_TO_LOAD)
-	{
-		if (loaded[iter] == 0)
-			return (0);
-	}
-	return (1);
-}
 
 
 int	fill_map_with_space_chars(t_map *map)
@@ -89,9 +72,8 @@ int	fill_map_with_space_chars(t_map *map)
 	return (1);
 }
 
-void	free_parser_vars(t_game *vars, t_list *linked_list, char *line, int result)
+void	free_parser_vars(t_cub3d *cub3d, char *line, int result)
 {
 	free(line);
-	free_list(linked_list);
-	free_vars_and_exit(result, vars);
+	free_vars_and_exit(result, cub3d);
 }
