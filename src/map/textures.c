@@ -35,9 +35,9 @@ int	load_tex(void *mlx, int ***texture, char *path)
 
 void	voidp_to_matrix(t_img tmp, int ***texture, int height, int width)
 {
-	int		x;
-	int		y;
-	char	*c;
+	int				x;
+	int				y;
+	unsigned char	*c;
 
 	if (*texture)
 	{
@@ -47,15 +47,14 @@ void	voidp_to_matrix(t_img tmp, int ***texture, int height, int width)
 			x = -1;
 			while (++x < width)
 			{
-				c = tmp.addr + (y * tmp.line + (x * (tmp.bpp / BITS_PER_BYTE)));
-				(*texture)[y][x] = c[0] << 24 | c[1] << 16 | c[2] << 8 | c[3];
+				c = (unsigned char *)tmp.addr + (y * tmp.line + (x * (tmp.bpp
+								/ BITS_PER_BYTE)));
+				(*texture)[y][x] = (unsigned int)c[0] << 24 | c[1] << 16
+					| c[2] << 8 | c[3];
 			}
 		}
 	}
 }
-
-
-
 
 /*
 **	Initiates the matrices that are going to store the textures.
