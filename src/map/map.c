@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsantos <jsantos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 21:30:16 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/11 18:40:14 by jsantos          ###   ########.fr       */
+/*   Updated: 2022/01/13 23:44:19 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
+#include <stdio.h>
 
 #include "ft_math.h"
 #include "ft_stdlib.h"
@@ -61,15 +62,19 @@ void	load_map(t_cub3d *cub3d, const char *file)
     status = 0;
 	while (get_next_line(fd, &line))
 	{
-		line_length = ft_strlen(line);
+		line_length = ft_strlen(line); //TODO: protect again NULL pointer
 		if (!line || !line_length)
+		{
 			status = handle_empty_line(cub3d, line, status);
+			ft_free(line);
+		}
 		else if (!status)
+		{
 			status = parse_header(cub3d->mlx, &cub3d->screen.textures, line, 0);
+			ft_free(line);
+		}
 		else
 			status = parse_map(cub3d, &cub3d->game, line, line_length);
-		ft_free(line);
-		line = NULL;
 		if (status < 0)
 			terminate(cub3d, status);
 	}
@@ -140,10 +145,10 @@ int	parse_map(t_cub3d *cub3d, t_game *game, char *line, int line_length)
 
 	if (line_length > game->cols)
 		game->cols = line_length;
-	new_matrix = ft_realloc(game->map, i, i + 1);
+	new_matrix = ft_realloc(game->map, sizeof(char *) * i, sizeof(char *) * (i + 1));
 	if (new_matrix == game->map)
 		terminate(cub3d, FAILED_MALLOC);
-	new_matrix[++i] = line;
+	new_matrix[i++] = line;
 	game->map = new_matrix;
 	game->rows++;
 	return (SUCCESSFUL_IMPORT);
