@@ -161,7 +161,7 @@ else ifeq ($(shell uname), Darwin)
 	else ifeq (${MLX}, mms)
 		MLX_LIB_ROOT := ${LIB_ROOT}minilibx_mms_20200219/
 		MLX_LIB_INC := ${MLX_LIB_ROOT}
-		MLX_LIB := ${MLX_LIB_ROOT}libmlx.a
+		MLX_LIB := ${MLX_LIB_ROOT}libmlx.dylib
 	endif
 endif
 
