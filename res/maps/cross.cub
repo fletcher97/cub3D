@@ -1,0 +1,15 @@
+NO res/imgs/no.xpm
+SO res/imgs/so.xpm
+WE res/imgs/we.xpm
+EA res/imgs/ea.xpm
+
+F 220,100,0
+C 225,30,0
+
+1111111
+1110111
+1100011
+100N001
+1100011
+1110111
+1111111
