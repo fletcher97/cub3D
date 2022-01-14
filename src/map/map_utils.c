@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/14 00:20:17 by mgueifao          #+#    #+#             */
+/*   Updated: 2022/01/14 00:29:03 by mgueifao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "c3d_map.h"
 #include "ft_stdlib.h"
 #include "ft_string.h"
@@ -51,7 +63,7 @@ int	check_element_id(char *str, int *id)
 
 void	free_split(char **temp)
 {
-	int iter;
+	int	iter;
 
 	iter = -1;
 	while (temp && temp[++iter])
@@ -59,7 +71,6 @@ void	free_split(char **temp)
 	ft_free(temp);
 	temp = NULL;
 }
-
 
 /*
  *	Makes sure every line on the map has the same length, by filling with space
@@ -69,7 +80,7 @@ void	free_split(char **temp)
 
 void	fill_map_with_space_chars(t_cub3d *cub3d, t_game *game)
 {
-	int 	row;
+	int		row;
 	int		len;
 	char	*new_line;
 	int		i;

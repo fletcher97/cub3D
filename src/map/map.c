@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 21:30:16 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/13 23:44:19 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/14 00:32:16 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,23 @@ void	init_parsing_variables(t_cub3d *cub3d)
 /*
  *	Status can indicate error (-1), parsing header (0) or parsing map (1).
 */
+//TODO: protect strlen against NULL pointer
 
 void	load_map(t_cub3d *cub3d, const char *file)
 {
-    int     fd;
-    int     status;
-    char    *line;
+	int		fd;
+	int		status;
+	char	*line;
 	size_t	line_length;
 
-    fd = open(file, O_RDONLY);
-    if (fd == -1)
-        terminate(cub3d, ERROR_READING_MAP_FILE);
-    init_parsing_variables(cub3d);
-    status = 0;
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		terminate(cub3d, ERROR_READING_MAP_FILE);
+	init_parsing_variables(cub3d);
+	status = 0;
 	while (get_next_line(fd, &line))
 	{
-		line_length = ft_strlen(line); //TODO: protect again NULL pointer
+		line_length = ft_strlen(line);
 		if (!line || !line_length)
 		{
 			status = handle_empty_line(cub3d, line, status);
@@ -86,7 +87,7 @@ void	load_map(t_cub3d *cub3d, const char *file)
 /*
  *	Parses the map header to extract the path to the 4 textures and the value of
  *	the 2 colors.
-*	1) Starts by splitting the file line (passed as a parameter) using a space
+ *	1) Starts by splitting the file line (passed as a parameter) using a space
  *	char (' ') as a separator. It then checks if there is information to load
  *	(either the path to the texture or the color value), and if there is no more
  *	(unwanted) information; the last string of the split should be null!
@@ -100,15 +101,16 @@ void	load_map(t_cub3d *cub3d, const char *file)
  *	(-1), it is still ongoing (0) or has finished and the program can start
  *	reading the map itself (1).
 */
-/// TO-DO: output error message in case of duplicate entries (it is given an error
-/// return value, but the specific error that occurs is not known to the calling function
-///TO-DO: free the split in the various instances
-int parse_header(void *mlx, t_tex *tex, char *line, int flag)
+/// TODO: output error message in case of duplicate entries (it is given an
+/// error return value, but the specific error that occurs is not known to the
+/// calling function
+/// TODO: free the split in the various instances
+int	parse_header(void *mlx, t_tex *tex, char *line, int flag)
 {
-	char        **aux;
+	char		**aux;
 	int			id;
 	static char	ceil = 0;
-	static char floor = 0;
+	static char	floor = 0;
 
 	aux = ft_split(line, ' ');
 	if (!aux || !aux[1] || aux[2])
@@ -145,7 +147,8 @@ int	parse_map(t_cub3d *cub3d, t_game *game, char *line, int line_length)
 
 	if (line_length > game->cols)
 		game->cols = line_length;
-	new_matrix = ft_realloc(game->map, sizeof(char *) * i, sizeof(char *) * (i + 1));
+	new_matrix = ft_realloc(game->map, sizeof(char *) * i, sizeof(char *)
+			* (i + 1));
 	if (new_matrix == game->map)
 		terminate(cub3d, FAILED_MALLOC);
 	new_matrix[i++] = line;

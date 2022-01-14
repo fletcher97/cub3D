@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validity_checking.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/14 00:25:22 by mgueifao          #+#    #+#             */
+/*   Updated: 2022/01/14 00:27:55 by mgueifao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "c3d_map.h"
 
 /*
@@ -33,8 +45,8 @@ int	save_player_position(t_game *game, int row, int column)
 int	contains_only_allowed_chars(t_game *game)
 {
 	int		start_position_counter;
-	int 	row;
-	int 	column;
+	int		row;
+	int		column;
 
 	start_position_counter = 0;
 	row = -1;
@@ -44,11 +56,13 @@ int	contains_only_allowed_chars(t_game *game)
 		while (game->map[row][++column] != '\0')
 		{
 			if (game->map[row][column] == 'N' || game->map[row][column] == 'S'
-				|| game->map[row][column] == 'E' || game->map[row][column] == 'W')
-				start_position_counter += save_player_position(game, row, column);
+				|| game->map[row][column] == 'E'
+				|| game->map[row][column] == 'W')
+				start_position_counter
+					+= save_player_position(game, row, column);
 			else if (game->map[row][column] != ' '
-					 && game->map[row][column] != '0'
-					 && game->map[row][column] != '1')
+					&& game->map[row][column] != '0'
+					&& game->map[row][column] != '1')
 				return (0);
 		}
 	}
@@ -78,11 +92,9 @@ int	check_surroundings(t_game *game, int row, int column)
 
 int	is_surrounded_by_walls(t_game *game)
 {
-	int		char_count;
-	int 	row;
-	int 	column;
+	int		row;
+	int		column;
 
-	char_count = 0;
 	row = -1;
 	while (++row < game->rows)
 	{

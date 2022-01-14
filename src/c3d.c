@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   c3d.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsantos <jsantos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/11 18:42:07 by jsantos          ###   ########.fr       */
+/*   Updated: 2022/01/14 00:20:03 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init(t_cub3d *cub3d)
 	{
 		img[i].img = mlx_new_image(cub3d->mlx, s->width, s->height);
 		img[i].addr = mlx_get_data_addr(img[i].img, &img[i].bpp, &img[i].line,
-										&img[i].endian);
+				&img[i].endian);
 	}
 }
 

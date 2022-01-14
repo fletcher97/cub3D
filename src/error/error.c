@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 00:39:57 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/30 00:40:22 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/14 00:24:19 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 #include "c3d_error.h"
 #include "mlx.h"
 #include "ft_stdlib.h"
+
+// TODO: destroy map
+// Find mac compatible alternative
+//	if (cub3d->mlx)
+//		mlx_destroy_display(cub3d->mlx);
 
 void	terminate(t_cub3d *cub3d, int exit_code)
 {
@@ -27,10 +32,6 @@ void	terminate(t_cub3d *cub3d, int exit_code)
 	if (cub3d->mlx && cub3d->screen.win)
 		mlx_destroy_window(cub3d->mlx, cub3d->screen.win);
 	ft_free(cub3d->screen.title);
-	///destroy map
-// Find mac compatible alternative
-//	if (cub3d->mlx)
-//		mlx_destroy_display(cub3d->mlx);
 	ft_free(cub3d->mlx);
 	ft_free(cub3d);
 	exit(exit_code);
@@ -38,6 +39,6 @@ void	terminate(t_cub3d *cub3d, int exit_code)
 
 /*
  * ILLEGAL_INPUT message:
- * printf("Cub3d must be run with the name of a single map file having the extention \".cub\"\n");
+ * printf("Cub3d must be run with the name of a single map file having the"
+ * " extention \".cub\"\n");
 */
-

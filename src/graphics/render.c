@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 00:21:57 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/29 19:56:10 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/14 00:24:37 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	render(t_cub3d cub3d)
 {
 	render_ceil(cub3d.screen, 0x000000ff, cub3d.mlx);
 	render_floor(cub3d.screen, 0x00bbff55, cub3d.mlx);
-	//render_wall(cub3d.game.player, cub3d.game.map, cub3d.screen);
 }
+//render_wall(cub3d.game.player, cub3d.game.map, cub3d.screen);

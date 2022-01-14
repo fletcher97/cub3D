@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 21:25:30 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/29 19:57:15 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/14 00:22:56 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@
 //	ft_free(player);
 //}
 
-
-
 // double adjust(char )
 
 //void	move_player(t_game *vars)
@@ -55,14 +53,18 @@
 //		// Vertical adjustment
 //		if (vars->map.player_coord_y < y)
 //		{
-//			if (vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'
-//				|| vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
+//			if (vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int)
+//					(x - CENTER_OFFSET + FLT_EPSILON)] == '1'
+//				|| vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)]
+//					[(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
 //				y = ceil(y) - CENTER_OFFSET;
 //		}
 //		else if (vars->map.player_coord_y > y)
 //		{
-//			if (vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'
-//				|| vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
+//			if (vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int)
+//					(x - CENTER_OFFSET + FLT_EPSILON)] == '1'
+//				|| vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)]
+//					[(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
 //				y = ceil(y) - CENTER_OFFSET;
 //		}
 //
@@ -76,20 +78,24 @@
 //
 //		if (vars->map.player_coord_x < x)
 //		{
-//			if (vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1'){
+//			if (vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int)
+//					(x + CENTER_OFFSET - FLT_EPSILON)] == '1'){
 //				x = ceil(x) - CENTER_OFFSET;
 //			}
-//			else if (vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1'){
+//			else if (vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)]
+//					[(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1'){
 //				x = ceil(x) - CENTER_OFFSET;
 //			}
 //		}
 //
 //		else if (vars->map.player_coord_x > x)
 //		{
-//			if (vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'){
+//			if (vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int)
+//					(x - CENTER_OFFSET + FLT_EPSILON)] == '1'){
 //				x = ceil(x) - CENTER_OFFSET;
 //			}
-//			else if (vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'){
+//			else if (vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)]
+//					[(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'){
 //				x = ceil(x) - CENTER_OFFSET;
 //			}
 //		}
@@ -107,7 +113,8 @@
 //	old_x = map->player_coord_x;
 //	if ((int)new_y != (int)old_y || (int)new_x != (int)old_x)
 //	{
-//		map->matrix[(int) new_y][(int) new_x] = map->matrix[(int) old_y][(int) old_x];
+//		map->matrix[(int) new_y][(int) new_x] = map->matrix[(int) old_y]
+//			[(int) old_x];
 //		map->matrix[(int) old_y][(int) old_x] = '0';
 //	}
 //	map->player_coord_y = new_y;
