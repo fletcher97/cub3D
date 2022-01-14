@@ -90,6 +90,6 @@ int	texture_init(int ***tex)
 		}
 		i++;
 	}
-	*tex[i] = NULL;
+	(*tex)[i] = NULL;
 	return (1);
 }
