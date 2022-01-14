@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/13 23:51:54 by mgueifao          #+#    #+#             */
+/*   Updated: 2022/01/13 23:55:10 by mgueifao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_stdlib.h"
 #include "ft_memutils.h"
 
@@ -73,7 +85,7 @@ int	texture_init(int ***tex)
 		(*tex)[i] = ft_calloc(TEXTURE_SIZE * 5, sizeof(int));
 		if (!(*tex)[i])
 		{
-			ft_free_matrix((void**)*tex, NULL);
+			ft_free_matrix((void **)*tex, NULL);
 			return (0);
 		}
 		i++;
