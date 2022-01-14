@@ -6,11 +6,10 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 15:18:41 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/14 00:42:48 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/14 00:46:42 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_memutils.h"
 #include <stdlib.h>
 
 void	ft_free_matrix_s(void **matrix, int count, void (*del)(void *))
