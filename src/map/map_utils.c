@@ -27,6 +27,7 @@ int	handle_empty_line(t_cub3d *cub3d, char *line, int status)
 {
 	if (!line)
 		return (FAILED_MALLOC);
+	ft_free(line);
 	if (status && cub3d->game.cols != 0)
 		return (INVALID_MAP);
 	else
@@ -34,11 +35,11 @@ int	handle_empty_line(t_cub3d *cub3d, char *line, int status)
 }
 
 /*
-**	Reads the first chars of the line to know what kind of element it will try
-**	to load.
+ *	Reads the first chars of the line to know what kind of element it will try
+ *	to load. If the element is not valid, returns 0.
 */
 
-int	check_element_id(char *str, int *id)
+int	is_valid_element(char *str, int *id)
 {
 	if (ft_strncmp(str, "NO", 3) == 0)
 		*id = NO;
@@ -53,8 +54,11 @@ int	check_element_id(char *str, int *id)
 	else if (ft_strncmp(str, "F", 2) == 0)
 		*id = FLOOR;
 	else
+	{
 		*id = 0;
-	return (0);
+		return (0);
+	}
+	return (1);
 }
 
 /*

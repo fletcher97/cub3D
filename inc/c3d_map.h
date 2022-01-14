@@ -42,8 +42,9 @@ typedef enum e_graphics {
 
 void	load_map(t_cub3d *cub3d, const char *file);
 int		handle_empty_line(t_cub3d *cub3d, char *line, int status);
-int		parse_header(void *mlx, t_tex *textures, char *line, int flag);
-int		check_element_id(char *str, int *id);
+int		parse_header(void *mlx, t_tex *tex, char *line);
+int		load_elements(void *mlx, t_tex *tex, char **aux, int id);
+int		is_valid_element(char *str, int *id);
 int		load_tex(void *mlx, int ***texture, char *path);
 int		texture_init(int ***tex);
 void	voidp_to_matrix(t_img tmp, int ***texture, int height, int width);
