@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 15:18:41 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/29 15:34:36 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/14 00:42:48 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	ft_free_matrix_s(void **matrix, int count, void (*del)(void *))
 {
 	int	i;
-    
+
 	if (!matrix || !del)
 		return ;
 	i = -1;
