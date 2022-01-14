@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 04:46:51 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/13 23:03:59 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/14 00:33:58 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,8 @@
 #   define C3D_KEY_J			38
 #   define C3D_KEY_K			40
 #   define C3D_KEY_L			37
-#	define C3D_KEY_LEFT_ARROW	123
-#	define C3D_KEY_RIGHT_ARROW	124
+#   define C3D_KEY_LEFT_ARROW	123
+#   define C3D_KEY_RIGHT_ARROW	124
 
 #   define C3D_KEY_
 #   define C3D_KEY_

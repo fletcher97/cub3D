@@ -1,5 +1,17 @@
-#ifndef CUB3D_ERRORS_H
-# define CUB3D_ERRORS_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   errors.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/14 00:35:42 by mgueifao          #+#    #+#             */
+/*   Updated: 2022/01/14 00:35:50 by mgueifao         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef ERRORS_H
+# define ERRORS_H
 
 /*
 **	ERRORS
@@ -19,5 +31,4 @@ typedef enum e_errors {
 	NO_MINIMAP_TEXTURES			= -11
 }	t_errors;
 
-#endif
-
+#endif //ERRORS_H

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   c3d.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsantos <jsantos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 19:08:27 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/11 18:59:16 by jsantos          ###   ########.fr       */
+/*   Updated: 2022/01/14 00:35:08 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef C3D_H
+# define C3D_H
 
 # include "c3d_player.h"
 # include <stdbool.h>
@@ -37,12 +37,12 @@ typedef struct s_img
 
 typedef struct s_tex
 {
-	int **no;
-	int **so;
-	int **ea;
-	int **we;
-	int c;
-	int f;
+	int	**no;
+	int	**so;
+	int	**ea;
+	int	**we;
+	int	c;
+	int	f;
 }				t_tex;
 
 typedef struct s_screen
@@ -67,7 +67,7 @@ typedef struct s_player
 	double		dir;
 	int			x_mov;
 	int			y_mov;
-	int 		cam_rot;
+	int			cam_rot;
 }				t_player;
 
 typedef struct s_game
