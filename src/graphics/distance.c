@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 19:24:54 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/13 23:01:53 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/15 18:34:58 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cub3d.h"
+#include "c3d.h"
 
 static int check(t_pos pos, t_game game)
 {
