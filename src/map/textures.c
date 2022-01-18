@@ -76,13 +76,13 @@ int	texture_init(int ***tex)
 {
 	int	i;
 
-	*tex = ft_calloc(TEXTURE_SIZE * 5 + NULL_TERM, sizeof(int *));
+	*tex = ft_calloc(TEXTURE_SIZE + NULL_TERM, sizeof(int *));
 	if (!*tex)
 		return (0);
 	i = 0;
-	while (i < TEXTURE_SIZE * 5)
+	while (i < TEXTURE_SIZE)
 	{
-		(*tex)[i] = ft_calloc(TEXTURE_SIZE * 5, sizeof(int));
+		(*tex)[i] = ft_calloc(TEXTURE_SIZE, sizeof(int));
 		if (!(*tex)[i])
 		{
 			ft_free_matrix((void **)*tex, NULL);
