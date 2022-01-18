@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 00:39:57 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/18 23:33:06 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/18 23:37:24 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include "mlx.h"
 
 #include "ft_stdlib.h"
+#include "ft_err.h"
+
+#include "c3d_error.h"
 
 #include "c3d_error.h"
 #include "c3d_map.h"
@@ -48,7 +51,7 @@ static void	free_map(t_cub3d *cub3d)
 void	terminate(t_cub3d *cub3d, int exit_code)
 {
 	if (!cub3d)
-		exit(exit_code);
+		exit_err(exit_code);
 	if (cub3d->screen.img && cub3d->screen.img[1].img)
 		mlx_destroy_image(cub3d->mlx, cub3d->screen.img[1].img);
 	if (cub3d->screen.img && cub3d->screen.img[0].img)
@@ -60,7 +63,7 @@ void	terminate(t_cub3d *cub3d, int exit_code)
 	free_map(cub3d);
 	ft_free(cub3d->mlx);
 	ft_free(cub3d);
-	exit(exit_code);
+	exit_err(exit_code);
 }
 
 /*

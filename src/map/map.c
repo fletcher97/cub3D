@@ -98,7 +98,9 @@ int	load_elements(void *mlx, t_tex *tex, char **aux, int id)
 		ret = load_color(&tex->f, aux[1]);
 	if (ceil > 1 || floor > 1)
 		return (REPEATED_ASSET);
-	return (ret);
+	if (ret < 0)
+		return (ret);
+	return (tex->no && tex->so && tex->ea && tex->we && ceil && floor);
 }
 
 /*
@@ -141,9 +143,7 @@ int	parse_header(void *mlx, t_tex *tex, char *line)
 	}
 	ret = load_elements(mlx, tex, aux, id);
 	free_split(aux);
-	if (ret != 1)
-		return (ret);
-	return (tex->no && tex->so && tex->ea && tex->we);
+	return (ret);
 }
 
 /*

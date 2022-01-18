@@ -100,7 +100,7 @@ void	fill_map_with_space_chars(t_cub3d *cub3d, t_game *game)
 				terminate(cub3d, FAILED_MALLOC);
 			i = len;
 			while (i < game->cols)
-				new_line[i] = ' ';
+				new_line[i++] = ' ';
 			new_line[i] = '\0';
 			game->map[row] = new_line;
 		}
