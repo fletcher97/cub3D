@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/14 00:20:03 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/18 20:35:47 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "ft_stdlib.h"
 #include "ft_conv.h"
 #include "ft_string.h"
+#include "ft_err.h"
 
 #include "c3d.h"
 #include "c3d_error.h"
@@ -74,6 +75,7 @@ int	main(int argc, char *argv[])
 {
 	t_cub3d	*cub3d;
 
+	load_err("res/err.txt");
 	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
 		terminate(NULL, ILLEGAL_INPUT);
 	cub3d = ft_calloc(1, sizeof(t_cub3d));
@@ -84,5 +86,5 @@ int	main(int argc, char *argv[])
 	set_listeners(cub3d);
 	mlx_loop_hook(cub3d->mlx, update, cub3d);
 	mlx_loop(cub3d->mlx);
-	return (0);
+	terminate(cub3d, 0);
 }

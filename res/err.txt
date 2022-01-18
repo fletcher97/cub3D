@@ -1,0 +1,10 @@
+0:Normal exit
+-1:Wrong input. A single file with the extention '.cub' is expected.
+-2:Failed to malloc
+-3:File given does not end with '.cub'
+-4:Failed to read file map
+-5:Invalid map
+-6:Failed to read image
+-7:Failed to get MLX connection
+-8:Failed to create window
+-9:Map contains duplicate definitions for the same texture
