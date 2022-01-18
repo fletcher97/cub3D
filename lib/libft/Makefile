@@ -291,13 +291,8 @@ re: fclean all
 debug: CFLAGS += ${DFLAGS}
 debug: $$(call get_lib_target,$${DEFAULT_LIBS},$$@) all
 
-obj/asan/asan.o: src/asan/asan.c
-	${AT}mkdir -p ${@D} ${BLOCK}
-	${AT}${CC} -o $@ -c $< ${BLOCK}
-
 debug_asan: CFLAGS += ${DFLAGS} ${ASAN}
-debug_asan: ASAN_FILE = obj/asan/asan.o
-debug_asan: $$(call get_lib_target,$${DEFAULT_LIBS},$$@) obj/asan/asan.o all
+debug_asan: $$(call get_lib_target,$${DEFAULT_LIBS},$$@) all
 
 debug_tsan: CFLAGS += ${DFLAGS} ${TSAN}
 debug_tsan: $$(call get_lib_target,$${DEFAULT_LIBS},$$@) all
@@ -430,7 +425,7 @@ endef
 define make_compile_test_def
 compile-test/${1}: .FORCE
 	$${AT}printf "\033[33m[TESTING $${@F}]\033[0m\n" $${BLOCK}
-	$${AT}$${CC} $${CFLAGS} -fsyntax-only $${INCS} $${ASAN_FILE}\
+	$${AT}$${CC} $${CFLAGS} -fsyntax-only $${INCS}\
 		$$(call get_files,$${@F},$${SRCS_LIST}) $${BLOCK}
 endef
 
