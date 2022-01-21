@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 06:06:29 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/15 18:36:24 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/01/19 00:46:36 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ void	get_screen(t_screen *screen);
 void	next_frame(t_screen screen, void *mlx);
 void	render(t_cub3d cub3d);
 double	get_dist(double ang, t_game game, t_pos *pos);
+double	h_check(t_game g, double ang);
+double	v_check(t_game g, double ang);
 
 #endif
