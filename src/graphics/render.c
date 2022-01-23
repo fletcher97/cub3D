@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#undef __STRICT_ANSI__
 #include <math.h>
 #include <stdio.h>
 
@@ -127,7 +128,7 @@ void	render_wall(void *mlx, t_game game, t_screen screen)
 {
 	// t_pos	pos;
 	int		c;
-	static int b = 0;
+	// static int b = 0;
 
 	for (int i = 0; i < screen.width-700; i++)
 	{
@@ -168,7 +169,7 @@ void	render_wall(void *mlx, t_game game, t_screen screen)
 			my_mlx_pixel_put(&screen.img[1], i, j, mlx_get_color_value(mlx, c));
 		}
 	}
-	b = 1;
+	// b = 1;
 }
 
 void test(t_cub3d c)
