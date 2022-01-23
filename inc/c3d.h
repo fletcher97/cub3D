@@ -13,7 +13,6 @@
 #ifndef C3D_H
 # define C3D_H
 
-# include "c3d_player.h"
 # include <stdbool.h>
 
 typedef struct s_pos
