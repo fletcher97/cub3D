@@ -53,7 +53,7 @@ void	init(t_cub3d *cub3d)
 	}
 }
 
-///still need to understand how you implemented this one
+///still need to understand how you implemented render and next_frame
 int	update(void *param)
 {
 	char		*frame;
@@ -61,6 +61,9 @@ int	update(void *param)
 	t_cub3d		cub3d;
 
 	cub3d = *((t_cub3d *) param);
+	move_player(vars);
+	move_camera(vars);
+	print_mini_map(vars);
 	render(cub3d);
 	next_frame(cub3d.screen, cub3d.mlx);
 	frame_count++;
