@@ -13,4 +13,10 @@
 #ifndef C3D_PLAYER_H
 # define C3D_PLAYER_H
 
+# include "c3d.h"
+
+# define STEP	0.05
+
+void	move_player(t_game *game);
+
 #endif
