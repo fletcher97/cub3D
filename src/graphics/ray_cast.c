@@ -84,7 +84,7 @@ double	v_check(t_game g, double ang)
 		offset.y = 1;
 		offset.x = -offset.y * (-tan(ang));
 	}
-	while (ray.y >= 0 && (int)ray.y < g.rows && ray.x >= 0 && (int)ray.x < g.cols)
+	while ((int)ray.y >= 0 && (int)ray.y < g.rows && (int)ray.x >= 0 && (int)ray.x < g.cols)
 	{
 		if (g.map[(int)ray.y][(int)ray.x] != '1')
 		{
