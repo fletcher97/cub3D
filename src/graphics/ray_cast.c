@@ -52,7 +52,6 @@ double	h_check(t_game g, double ang)
 	{
 		ray.y = ((int)g.player.pos.y) + 1;
 		ray.x = (g.player.pos.y - ray.y) * (-1 / tan(ang)) + g.player.pos.x;
-		printf("RX:%lf\n", ray.x);
 		offset.y = 1;
 		offset.x = -offset.y * (-1 / tan(ang));
 	}
@@ -87,13 +86,9 @@ double	v_check(t_game g, double ang)
 	while ((int)ray.y >= 0 && (int)ray.y < g.rows && (int)ray.x >= 0 && (int)ray.x < g.cols)
 	{
 		if (g.map[(int)ray.y][(int)ray.x] != '1')
-		{
-			printf("hit %d %d. Dist: %lf %lf\n", (int)ray.x, (int)ray.y, g.player.pos.x, g.player.pos.x);
-			return (dist(ray.x, ray.y, g.player.pos.x, g.player.pos.x));
-		}
+			return (dist(ray.x, ray.y, g.player.pos.x, g.player.pos.y));
 		ray.y += offset.y;
 		ray.x += offset.x;
 	}
-	printf("out\n");
 	return (-1);
 }
