@@ -18,5 +18,6 @@
 # define STEP	0.05
 
 void	move_player(t_game *game);
+void	move_camera(t_game *game);
 
 #endif
