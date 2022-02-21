@@ -1,10 +1,10 @@
-NO res/imgs/no.xpm
-SO res/imgs/so.xpm
-WE res/imgs/we.xpm
-EA res/imgs/ea.xpm
+NO res/imgs/Wall-000.xpm
+SO res/imgs/Wall-002.xpm
+WE res/imgs/Wall-001.xpm
+EA res/imgs/Wall-003.xpm
 
-F 220,100,0
-C 225,30,0
+F 77,77,77
+C 117,198,255
 
         1111111111111111111111111
         1000000000110000000000001
