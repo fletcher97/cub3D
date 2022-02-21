@@ -24,6 +24,7 @@
 #include "c3d_map.h"
 #include "c3d_listener.h"
 #include "c3d_graphics.h"
+#include "c3d_player.h"
 #include "errors.h"
 
 /*
@@ -61,9 +62,9 @@ int	update(void *param)
 	t_cub3d		cub3d;
 
 	cub3d = *((t_cub3d *) param);
-	move_player(vars);
-	move_camera(vars);
-	print_mini_map(vars);
+	move_player(&cub3d.game);
+//	move_camera(vars);
+//	print_mini_map(vars);
 	render(cub3d);
 	next_frame(cub3d.screen, cub3d.mlx);
 	frame_count++;
