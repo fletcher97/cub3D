@@ -6,7 +6,7 @@
 /*   By: fletcher <fletcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 00:21:57 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/02/21 21:21:03 by fletcher         ###   ########.fr       */
+/*   Updated: 2022/02/21 22:14:10 by fletcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void render_wall(void *mlx, t_game game, t_screen screen)
 				my_mlx_pixel_put(&screen.img[1], i + k, j, c);
 			}
 			check->tex.y += TEXTURE_SIZE / (double)lineH;
-			if ((int)check->tex.y == TEXTURE_SIZE)
+			if ((int)check->tex.y >= TEXTURE_SIZE)
 				check->tex.y = TEXTURE_SIZE - 1;
 		}
 		ft_free(check);
