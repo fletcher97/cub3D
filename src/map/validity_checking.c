@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#define __USE_XOPEN
+#include <math.h>
 #include "c3d_map.h"
 
 /*
@@ -28,11 +30,11 @@ int	save_player_position(t_game *game, int row, int column)
 	if (orientation == 'E')
 		game->player.dir = 0.0;
 	else if (orientation == 'N')
-		game->player.dir = 90.0;
+		game->player.dir = M_PI_2;
 	else if (orientation == 'W')
-		game->player.dir = 180.0;
+		game->player.dir = M_PI;
 	else if (orientation == 'S')
-		game->player.dir = 270.0;
+		game->player.dir = M_PI_2 * 3;
 	return (1);
 }
 
