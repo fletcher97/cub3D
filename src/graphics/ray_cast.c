@@ -6,7 +6,7 @@
 /*   By: fletcher <fletcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:59:00 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/02/21 20:18:19 by fletcher         ###   ########.fr       */
+/*   Updated: 2022/02/21 23:09:20 by fletcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ static void	aux(double ang, t_check_ret *hvcheck, t_tex textures,
 	{
 		*check = hvcheck[0];
 		check->tex.x = (check->x - (int)check->x) * TEXTURE_SIZE;
-		check->texture = textures.no;
+		check->texture = textures.so;
 		if (ang > M_PI)
-			check->texture = textures.so;
-		else
 			check->tex.x = TEXTURE_SIZE - check->tex.x - 1;
+		else
+			check->texture = textures.no;
 	}
 	else
 	{
@@ -101,9 +101,9 @@ static void	aux(double ang, t_check_ret *hvcheck, t_tex textures,
 		check->tex.x = (check->y - (int)check->y) * TEXTURE_SIZE;
 		check->texture = textures.we;
 		if (ang > M_PI_2 && ang < M_PI_2 * 3)
-			check->tex.x = TEXTURE_SIZE - check->tex.x - 1;
-		else
 			check->texture = textures.ea;
+		else
+			check->tex.x = TEXTURE_SIZE - check->tex.x - 1;
 	}
 }
 
