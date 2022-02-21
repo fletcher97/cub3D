@@ -44,15 +44,13 @@ int	on_key_press(int key, void *param)
 	else if (key == C3D_KEY_S)
 		cub3d->game.player.y_mov += 1;
 	else if (key == C3D_KEY_D)
-		cub3d->game.player.x_mov -= 1;
-	else if (key == C3D_KEY_A)
 		cub3d->game.player.x_mov += 1;
+	else if (key == C3D_KEY_A)
+		cub3d->game.player.x_mov -= 1;
 	else if (key == C3D_KEY_LEFT_ARROW)
 		cub3d->game.player.cam_rot -= 1;
 	else if (key == C3D_KEY_RIGHT_ARROW)
 		cub3d->game.player.cam_rot += 1;
-	///delete this
-	printf("position x y: %lf %f\n", cub3d->game.player.pos.x, cub3d->game.player.pos.y);
 	return (0);
 }
 
@@ -74,9 +72,9 @@ int	on_key_release(int key, void *param)
 	else if (key == C3D_KEY_S)
 		cub3d->game.player.y_mov -= 1;
 	else if (key == C3D_KEY_D)
-		cub3d->game.player.x_mov += 1;
-	else if (key == C3D_KEY_A)
 		cub3d->game.player.x_mov -= 1;
+	else if (key == C3D_KEY_A)
+		cub3d->game.player.x_mov += 1;
 	else if (key == C3D_KEY_LEFT_ARROW)
 		cub3d->game.player.cam_rot += 1;
 	else if (key == C3D_KEY_RIGHT_ARROW)

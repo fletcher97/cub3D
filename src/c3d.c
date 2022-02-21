@@ -63,7 +63,7 @@ int	update(void *param)
 
 	cub3d = (t_cub3d *) param;
 	move_player(&cub3d->game);
-//	move_camera(vars);
+	move_camera(&cub3d->game);
 //	print_mini_map(vars);
 	render(*cub3d);
 	next_frame(cub3d->screen, cub3d->mlx);
