@@ -3,92 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   ray_cast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fletcher <fletcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:59:00 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/19 21:18:22 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/02/21 07:15:37 by fletcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#undef __STRICT_ANSI__
+#define __USE_XOPEN
 #include <math.h>
 #include <stdio.h>
 
 #include "c3d.h"
-
-/*
-	side=0; disV=100000;
-  float Tan=tan(degToRad(ra));
-       if(cos(degToRad(ra))> 0.001){ rx=(((int)px>>6)<<6)+64;      ry=(px-rx)*Tan+py; xo= 64; yo=-xo*Tan;}//looking left
-  else if(cos(degToRad(ra))<-0.001){ rx=(((int)px>>6)<<6) -0.0001; ry=(px-rx)*Tan+py; xo=-64; yo=-xo*Tan;}//looking right
-  else { rx=px; ry=py; dof=8;}                                                  //looking up or down. no hit
-
-  while(dof<8)
-  {
-   mx=(int)(rx)>>6; my=(int)(ry)>>6; mp=my*mapX+mx;
-   if(mp>0 && mp<mapX*mapY && map[mp]==1){ dof=8; disV=cos(degToRad(ra))*(rx-px)-sin(degToRad(ra))*(ry-py);}//hit
-   else{ rx+=xo; ry+=yo; dof+=1;}                                               //check next horizontal
-  }
-  vx=rx; vy=ry;
-*/
+#include "c3d_ray_cast.h"
 
 double dist(double x1, double y1, double x2, double y2)
 {
 	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
 
-double	h_check(t_game g, double ang)
+double	h_check(t_game g, double ang, t_check_ret *ray)
 {
-	t_pos	ray;
 	t_pos	offset;
 
-	if (g.player.dir < M_PI)
+	if (ang > M_PI)
 	{
-		ray.y = ((int)g.player.pos.y);
-		ray.x = (g.player.pos.y - ray.y) * (-1 / tan(ang)) + g.player.pos.x;
+		ray->y = ((int)g.player.pos.y) + 1.0001;
+		ray->x = (g.player.pos.y - ray->y) * (-1 / tan(ang)) + g.player.pos.x;
+		offset.y = 1;
+		offset.x = -offset.y * (-1 / tan(ang));
+	}
+	if (ang < M_PI)
+	{
+		ray->y = ((int)g.player.pos.y) - 0.0001;
+		ray->x = (g.player.pos.y - ray->y) * (-1 / tan(ang)) + g.player.pos.x;
 		offset.y = -1;
 		offset.x = -offset.y * (-1 / tan(ang));
 	}
-	if (g.player.dir > M_PI)
-	{
-		ray.y = ((int)g.player.pos.y) + 1;
-		ray.x = (g.player.pos.y - ray.y) * (-1 / tan(ang)) + g.player.pos.x;
-		offset.y = 1;
-		offset.x = -offset.y * (-1 / tan(ang));
-	}
-	while (ray.y >= 0 && ray.y < g.rows && ray.x >= 0 && ray.x < g.cols)
-	{
-		if (g.map[(int)ray.y][(int)ray.x] != '1')
-			return (dist(ray.x, ray.y, g.player.pos.x, g.player.pos.x));
-		ray = (t_pos){ray.x + offset.x, ray.y + offset.y};
-	}
-	return (-1);
+	if (ang != 0 && ang != M_PI)
+		while (ray->y >= 0 && ray->y < g.rows && ray->x >= 0 && ray->x < g.cols)
+		{
+			printf("ang:%lf, ray %lf, %lf", ang, ray->x, ray->y);
+			if (g.map[(int)ray->y][(int)ray->x] == '1')
+				return (ray->z = dist(ray->x, ray->y, g.player.pos.x, g.player.pos.y));
+			(ray->x += offset.x) && (ray->y += offset.y);
+		}
+	return (ray->z = -1);
 }
 
-double	v_check(t_game g, double ang)
+double	v_check(t_game g, double ang, t_check_ret *r)
 {
-	t_pos	ray;
 	t_pos	offset;
 
-	if (g.player.dir > (M_PI / 2) && g.player.dir < (3 * M_PI / 2))
+	if (ang < M_PI_2 || ang > (3 * M_PI_2))
 	{
-		ray.x = ((int)g.player.pos.x) - 0.0001;
-		ray.y = (g.player.pos.x - ray.x) * (-tan(ang)) + g.player.pos.x;
+		r->x = ((int)g.player.pos.x) - 0.0001;
+		r->y = (g.player.pos.x - r->x) * (-tan(ang)) + g.player.pos.y;
 		offset.x = -1;
 		offset.y = -offset.x * (-tan(ang));
 	}
-	if (g.player.dir < (M_PI / 2) || g.player.dir > (3 * M_PI / 2))
+	if (ang > M_PI_2 && ang < (3 * M_PI_2))
 	{
-		ray.y = ((int)g.player.pos.y) + 1;
-		ray.x = (g.player.pos.y - ray.y) * (-tan(ang)) + g.player.pos.x;
-		offset.y = 1;
-		offset.x = -offset.y * (-tan(ang));
+		r->x = ((int)g.player.pos.x) + 1.0001;
+		r->y = (g.player.pos.x - r->x) * (-tan(ang)) + g.player.pos.y;
+		offset.x = 1;
+		offset.y = -offset.x * (-tan(ang));
 	}
-	while ((int)ray.y >= 0 && (int)ray.y < g.rows && (int)ray.x >= 0 && (int)ray.x < g.cols)
-	{
-		if (g.map[(int)ray.y][(int)ray.x] != '1')
-			return (dist(ray.x, ray.y, g.player.pos.x, g.player.pos.y));
-		ray.y += offset.y;
-		ray.x += offset.x;
-	}
-	return (-1);
+	if (ang != M_PI_2 && ang != M_PI_2 * 3)
+		while ((int)r->y >= 0 && (int)r->y < g.rows && (int)r->x >= 0 && (int)r->x < g.cols)
+		{
+			printf("ang:%lf, ray %lf, %lf", ang, r->x, r->y);
+			if (g.map[(int)r->y][(int)r->x] == '1')
+				return (r->z = dist(r->x, r->y, g.player.pos.x, g.player.pos.y));
+			(r->x += offset.x) && (r->y += offset.y);
+		}
+	return (r->z = -1);
 }
