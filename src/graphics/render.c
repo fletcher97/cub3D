@@ -6,7 +6,7 @@
 /*   By: fletcher <fletcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 00:21:57 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/02/21 07:17:19 by fletcher         ###   ########.fr       */
+/*   Updated: 2022/02/21 07:37:49 by fletcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void render_wall(void *mlx, t_game game, t_screen screen)
 		ang = fmod(game.player.dir + ang + (2 * M_PI), (2 * M_PI));
 		t_check_ret hcheck = (t_check_ret){.x = 0, .y = 0, .z = 0};
 		t_check_ret vcheck = (t_check_ret){.x = 0, .y = 0, .z = 0};
-		h_check(game, ang, &hcheck);
-		v_check(game, ang, &vcheck);
+		h_check(game, ang, &hcheck, game.player.pos);
+		v_check(game, ang, &vcheck, game.player.pos);
 		double z;
 		if ((hcheck.z < vcheck.z && hcheck.z > 0.0) || vcheck.z < 0)
 		{

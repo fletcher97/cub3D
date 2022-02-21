@@ -6,7 +6,7 @@
 /*   By: fletcher <fletcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 06:45:16 by fletcher          #+#    #+#             */
-/*   Updated: 2022/02/21 06:59:26 by fletcher         ###   ########.fr       */
+/*   Updated: 2022/02/21 07:35:12 by fletcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_check_ret
 	double z;
 }				t_check_ret;
 
-double	h_check(t_game g, double ang, t_check_ret *ray);
-double	v_check(t_game g, double ang, t_check_ret *ray);
+double	h_check(t_game g, double ang, t_check_ret *ray, t_pos player);
+double	v_check(t_game g, double ang, t_check_ret *ray, t_pos player);
 
 #endif // C3D_RAY_CAST_H
