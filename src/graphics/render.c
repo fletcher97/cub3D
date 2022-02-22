@@ -6,7 +6,7 @@
 /*   By: fletcher <fletcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 00:21:57 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/02/22 00:55:48 by fletcher         ###   ########.fr       */
+/*   Updated: 2022/02/22 01:04:04 by fletcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void	render(t_cub3d cub3d)
 	render_ceil(cub3d.screen, cub3d.screen.textures.c);
 	render_floor(cub3d.screen, cub3d.screen.textures.f);
 	render_wall(cub3d.game, cub3d.screen);
+	render_map(cub3d.game, cub3d.screen);
 }
