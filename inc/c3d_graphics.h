@@ -6,7 +6,7 @@
 /*   By: fletcher <fletcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/16 06:06:29 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/02/21 06:49:13 by fletcher         ###   ########.fr       */
+/*   Updated: 2022/02/22 00:56:56 by fletcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # define NB_IMGS 2
 # define FOV 1.570796
+# define RENDER_STEP 1
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	get_screen(t_screen *screen);
