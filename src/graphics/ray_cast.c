@@ -6,7 +6,7 @@
 /*   By: fletcher <fletcher@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 23:59:00 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/02/21 23:09:20 by fletcher         ###   ########.fr       */
+/*   Updated: 2022/02/22 00:32:50 by fletcher         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	aux(double ang, t_check_ret *hvcheck, t_tex textures,
 	}
 }
 
-t_check_ret	*check_wall(t_game game, double ang, t_tex textures)
+t_check_ret	*check_wall(t_game game, double ang, t_tex textures, t_screen s)
 {
 	t_check_ret	hvcheck[2];
 	t_check_ret	*check;
@@ -118,5 +118,14 @@ t_check_ret	*check_wall(t_game game, double ang, t_tex textures)
 	h_check(game, ang, &hvcheck[0], game.player.pos);
 	v_check(game, ang, &hvcheck[1], game.player.pos);
 	aux(ang, hvcheck, textures, check);
+	check->z = check->z * cos(fmod(game.player.dir - ang + 2.0 * M_PI,
+				2 * M_PI));
+	check->lh = (double)s.height / check->z;
+	check->lo = ((double)s.height - check->lh) / 2;
+	if (check->lo < 0)
+		check->texoff = (check->lh - s.height) / 2.0;
+	if (check->lo < 0)
+		check->lo = 0;
+	check->tex.y = check->texoff * (TEXTURE_SIZE / (double)check->lh);
 	return (check);
 }
