@@ -12,6 +12,7 @@ cmake_minimum_required(VERSION 3.17)
 project(cub3d C)
 
 set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_COMPILER clang)
 set(CMAKE_C_FLAGS "-Wall -Werror -Wextra")
 #set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_C_FLAGS})
 #set(CMAKE_VERBOSE_MAKEFILE ON)
