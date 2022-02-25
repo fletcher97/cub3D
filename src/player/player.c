@@ -34,7 +34,8 @@ void	move_player(t_game *game)
 	if (game->player.x_mov | game->player.y_mov)
 	{
 		// Vertical mov
-		y += STEP * game->player.y_mov;
+		x += STEP * -cos(game->player.dir); ///why do I need minus here??? is it because of the inverse of the x-axis?
+		y += STEP * sin(game->player.dir) * game->player.y_mov;
 
 
 		// Vertical adjustment
@@ -53,7 +54,7 @@ void	move_player(t_game *game)
 		}
 
 		// HOrizontal mov
-		x += STEP * game->player.x_mov;
+//		x += STEP * game->player.x_mov;
 
 		// Horizontal adjustment
 		if (game->player.pos.x
