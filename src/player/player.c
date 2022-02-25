@@ -31,55 +31,50 @@ void	move_player(t_game *game)
 
 	x = game->player.pos.x;
 	y = game->player.pos.y;
-	if (game->player.x_mov | game->player.y_mov)
+	// Vertical mov
+	x += STEP * -cos(game->player.dir); ///why do I need minus here??? is it because of the inverse of the x-axis?
+	y += STEP * sin(game->player.dir) * game->player.y_mov;
+
+
+	// Vertical adjustment
+	if (game->player.pos.y < y)
 	{
-		// Vertical mov
-		x += STEP * -cos(game->player.dir); ///why do I need minus here??? is it because of the inverse of the x-axis?
-		y += STEP * sin(game->player.dir) * game->player.y_mov;
+		if (game->map[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'
+			|| game->map[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
+			y = ceil(y) - CENTER_OFFSET;
+	}
+	else if (game->player.pos.y > y)
+	{
+		if (game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'
+			|| game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
+			y = ceil(y) - CENTER_OFFSET;
+	}
 
-
-		// Vertical adjustment
-		if (game->player.pos.y
-		< y)
-		{
-			if (game->map[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'
-				|| game->map[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
-				y = ceil(y) - CENTER_OFFSET;
-		}
-		else if (game->player.pos.y> y)
-		{
-			if (game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'
-				|| game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
-				y = ceil(y) - CENTER_OFFSET;
-		}
-
-		// HOrizontal mov
+	// HOrizontal mov
 //		x += STEP * game->player.x_mov;
 
-		// Horizontal adjustment
-		if (game->player.pos.x
-		< x)
-		{
-			if (game->map[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1'){
-				x = ceil(x) - CENTER_OFFSET;
-			}
-			else if (game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1'){
-				x = ceil(x) - CENTER_OFFSET;
-			}
+	// Horizontal adjustment
+	if (game->player.pos.x < x)
+	{
+		if (game->map[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1'){
+			x = ceil(x) - CENTER_OFFSET;
 		}
-		else if (game->player.pos.x> x)
-		{
-			if (game->map[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'){
-				x = ceil(x) - CENTER_OFFSET;
-			}
-			else if (game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'){
-				x = ceil(x) - CENTER_OFFSET;
-			}
+		else if (game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1'){
+			x = ceil(x) - CENTER_OFFSET;
 		}
-		// change_player_position(&game->map, y, x);
-		game->player.pos.x = x;
-		game->player.pos.y = y;
 	}
+	else if (game->player.pos.x > x)
+	{
+		if (game->map[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'){
+			x = ceil(x) - CENTER_OFFSET;
+		}
+		else if (game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'){
+			x = ceil(x) - CENTER_OFFSET;
+		}
+	}
+	// change_player_position(&game->map, y, x);
+	game->player.pos.x = x;
+	game->player.pos.y = y;
 }
 //void	move_player(t_game *game)
 //{
