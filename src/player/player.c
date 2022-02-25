@@ -32,8 +32,16 @@ void	move_player(t_game *game)
 	x = game->player.pos.x;
 	y = game->player.pos.y;
 	// Vertical mov
-	x += STEP * -cos(game->player.dir); ///why do I need minus here??? is it because of the inverse of the x-axis?
-	y += STEP * sin(game->player.dir) * game->player.y_mov;
+	if (game->player.y_mov < 0) {
+		x += STEP * -cos(game->player.dir); ///why do I need minus here??? is it because of the inverse of the x-axis?
+		y += STEP * -sin(game->player.dir);
+	} else {
+		x += STEP * cos(game->player.dir); ///why do I need minus here??? is it because of the inverse of the x-axis?
+		y += STEP * sin(game->player.dir);
+	}
+
+	//note that when going N, ymov is -1
+	printf("ymov is %d\n", game->player.y_mov);
 
 
 	// Vertical adjustment
