@@ -28,17 +28,51 @@ void	move_player(t_game *game)
 {
 	double	x;
 	double	y;
+	int		vectorAdj;
+	double	angleAdj;
 
 	x = game->player.pos.x;
 	y = game->player.pos.y;
 	// Vertical mov
-	if (game->player.y_mov < 0) {
-		x -= STEP * cos(game->player.dir);
-		y -= STEP * sin(game->player.dir);
-	} else {
-		x += STEP * cos(game->player.dir);
-		y += STEP * sin(game->player.dir);
+	if (game->player.x_mov == 0) {
+		angleAdj = game->player.dir;
+		vectorAdj = game->player.y_mov;
 	}
+	else if (game->player.y_mov == 0)
+	{
+		angleAdj = game->player.dir + game->player.x_mov * M_PI_2; //this needs limiting to 0-2Pi
+		vectorAdj = -1; /// this is only negative because the PI and 0 are inverted on the x axis
+	}
+	else if (game->player.x_mov > 0 && game->player.y_mov > 0)
+	{
+		angleAdj = game->player.dir + game->player.x_mov * -M_PI_4; //this needs limiting to 0-2Pi
+		vectorAdj = game->player.x_mov * game->player.y_mov;
+//		vectorAdj = -1; /// this is only negative because the PI and 0 are inverted on the x axis
+	}
+	else if (game->player.x_mov > 0 && game->player.y_mov < 0)
+	{
+		angleAdj = game->player.dir + game->player.x_mov * M_PI_4; //this needs limiting to 0-2Pi
+		vectorAdj = game->player.x_mov * game->player.y_mov;
+//		angleAdj = game->player.dir + game->player.x_mov * M_PI_2; //this needs limiting to 0-2Pi
+//		vectorAdj = -1; /// this is only negative because the PI and 0 are inverted on the x axis
+	}
+	else if (game->player.x_mov < 0 && game->player.y_mov > 0)
+	{
+		angleAdj = game->player.dir + game->player.x_mov * M_PI_4*3; //this needs limiting to 0-2Pi
+		vectorAdj = game->player.x_mov * game->player.y_mov;
+//		angleAdj = game->player.dir + game->player.x_mov * M_PI_2; //this needs limiting to 0-2Pi
+//		vectorAdj = -1; /// this is only negative because the PI and 0 are inverted on the x axis
+	}
+	else // if (game->player.x_mov < 0 && game->player.y_mov < 0)
+	{
+		angleAdj = game->player.dir + game->player.x_mov * M_PI_4; //this needs limiting to 0-2Pi
+		vectorAdj = -game->player.x_mov * game->player.y_mov;
+//		angleAdj = game->player.dir + game->player.x_mov * M_PI_2; //this needs limiting to 0-2Pi
+//		vectorAdj = -1; /// this is only negative because the PI and 0 are inverted on the x axis
+	}
+
+	x += vectorAdj * STEP * cos(angleAdj);
+	y += vectorAdj * STEP * sin(angleAdj);
 
 	//note that when going N, ymov is -1
 	printf("ymov is %d\n", game->player.y_mov);
@@ -57,9 +91,6 @@ void	move_player(t_game *game)
 			|| game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
 			y = ceil(y) - CENTER_OFFSET;
 	}
-
-	// HOrizontal mov
-//		x += STEP * game->player.x_mov;
 
 	// Horizontal adjustment
 	if (game->player.pos.x < x)
