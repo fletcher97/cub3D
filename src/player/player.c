@@ -79,14 +79,9 @@ void	move_player(t_player *player, char **map)
 		vectorAdj = player->y_mov;
 	else if (player->y_mov == 0)
 		angleAdj = M_PI_2;
-	else if (player->x_mov > 0 && player->y_mov > 0)
-	{
-		vectorAdj = 1;
-		angleAdj = -M_PI_4;
-	}
-	else if (player->x_mov < 0 && player->y_mov > 0)
+	else if (player->y_mov > 0)
 		angleAdj = M_PI_4 * 3;
-	else // if (player->x_mov < 0 && player->y_mov != 0)
+	else
 		angleAdj = M_PI_4;
 	x = player->pos.x;
 	x += vectorAdj * STEP * cos(player->dir + player->x_mov * angleAdj);
