@@ -17,6 +17,7 @@
 
 /*
 ** MAP_PARSER_OUTPUT
+ * Offset means the player center offset
 */
 
 # define EMPTY_LINE					0
@@ -25,7 +26,7 @@
 # define NULL_TERM					1
 # define BITS_PER_BYTE				8
 # define NUMBER_OF_CHANNELS			3
-# define CENTER_OFFSET				0.5
+# define OFFSET						0.5
 
 /*
 ** ELEMENT TYPES ON THE MAP
