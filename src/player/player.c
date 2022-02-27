@@ -18,6 +18,9 @@
 #include "c3d_player.h"
 #include <stdio.h>
 
+///the problem is here, the adjustment can't me made separately for both axis,
+///because otherwise he can't enter either the passage on the left or the one on
+///the back
 
 void	adjust_movement(t_player *player, char **map, double x, double y)
 {
