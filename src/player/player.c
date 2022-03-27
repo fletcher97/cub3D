@@ -58,25 +58,25 @@ void	adjust_movement(t_player *player, char **map, double x, double y)
 
 void	move_player(t_player *player, char **map)
 {
-	int		vectorAdj;
-	double	angleAdj;
+	int		vector_adj;
+	double	angle_adj;
 	double	x;
 	double	y;
 
-	vectorAdj = -1;
-	angleAdj = 1;
+	vector_adj = -1;
+	angle_adj = 1;
 	if (player->x_mov == 0)
-		vectorAdj = player->y_mov;
+		vector_adj = player->y_mov;
 	else if (player->y_mov == 0)
-		angleAdj = M_PI_2;
+		angle_adj = M_PI_2;
 	else if (player->y_mov > 0)
-		angleAdj = M_PI_4 * 3;
+		angle_adj = M_PI_4 * 3;
 	else
-		angleAdj = M_PI_4;
+		angle_adj = M_PI_4;
 	x = player->pos.x;
-	x += vectorAdj * STEP * cos(player->dir + player->x_mov * angleAdj);
+	x += vector_adj * STEP * cos(player->dir + player->x_mov * angle_adj);
 	y = player->pos.y;
-	y += vectorAdj * STEP * sin(player->dir + player->x_mov * angleAdj);
+	y += vector_adj * STEP * sin(player->dir + player->x_mov * angle_adj);
 	adjust_movement(player, map, x, y);
 }
 
