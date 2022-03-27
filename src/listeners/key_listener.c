@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 07:24:09 by mgueifao          #+#    #+#             */
-/*   Updated: 2021/12/30 00:32:39 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/27 19:39:47 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,15 @@ int	on_key_release(int key, void *param)
 		cub3d->game.player.cam_rot += 1;
 	else if (key == C3D_KEY_RIGHT_ARROW)
 		cub3d->game.player.cam_rot -= 1;
+	return (0);
+}
+
+int	on_lost_focus(void *param)
+{
+	t_cub3d	*cub3d;
+
+	cub3d = ((t_cub3d *) param);
+	cub3d->game.player.x_mov = 0;
+	cub3d->game.player.y_mov = 0;
 	return (0);
 }
