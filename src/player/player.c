@@ -22,39 +22,38 @@
 ///because otherwise he can't enter either the passage on the left or the one on
 ///the back
 
+/// the same error makes the player get stuck when trying to go against vertical
+/// walls (but not horizontal ones)
+
 void	adjust_movement(t_player *player, char **map, double x, double y)
 {
+	double	off = OFFSET - FLT_EPSILON;
+
 	if (player->pos.y < y)
 	{
-		if (map[(int) (y + OFFSET - FLT_EPSILON)][(int) (x - OFFSET + FLT_EPSILON)] == '1'
-			|| map[(int) (y + OFFSET - FLT_EPSILON)][(int) (x + OFFSET - FLT_EPSILON)] == '1')
+		if (map[(int) (y + off)][(int) (x - off)] == '1'
+			|| map[(int) (y + off)][(int) (x + off)] == '1')
 			y = ceil(y) - OFFSET;
 	}
 	else if (player->pos.y > y)
 	{
-		if (map[(int) (y - OFFSET + FLT_EPSILON)][(int) (x - OFFSET + FLT_EPSILON)] == '1'
-			|| map[(int) (y - OFFSET + FLT_EPSILON)][(int) (x + OFFSET - FLT_EPSILON)] == '1')
+		if (map[(int) (y - off)][(int) (x - off)] == '1'
+			|| map[(int) (y - off)][(int) (x + off)] == '1')
 			y = ceil(y) - OFFSET;
 	}
 
 	// Horizontal adjustment
 	if (player->pos.x < x)
 	{
-		if (map[(int) (y + OFFSET - FLT_EPSILON)][(int) (x + OFFSET - FLT_EPSILON)] == '1'){
+		if (map[(int) (y + off)][(int) (x + off)] == '1'
+		|| map[(int) (y - off)][(int) (x + off)] == '1')
 			x = ceil(x) - OFFSET;
-		}
-		else if (map[(int) (y - OFFSET + FLT_EPSILON)][(int) (x + OFFSET - FLT_EPSILON)] == '1'){
-			x = ceil(x) - OFFSET;
-		}
 	}
 	else if (player->pos.x > x)
 	{
-		if (map[(int) (y + OFFSET - FLT_EPSILON)][(int) (x - OFFSET + FLT_EPSILON)] == '1'){
+		if (map[(int) (y + off)][(int) (x - off)] == '1'
+		|| map[(int) (y - off)][(int) (x - off)] == '1')
 			x = ceil(x) - OFFSET;
-		}
-		else if (map[(int) (y - OFFSET + FLT_EPSILON)][(int) (x - OFFSET + FLT_EPSILON)] == '1'){
-			x = ceil(x) - OFFSET;
-		}
 	}
 	player->pos.x = x;
 	player->pos.y = y;
