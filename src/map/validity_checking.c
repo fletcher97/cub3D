@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#define __USE_XOPEN
+#include <math.h>
 #include "c3d_map.h"
 
 /*
@@ -28,11 +30,11 @@ int	save_player_position(t_game *game, int row, int column)
 	if (orientation == 'E')
 		game->player.dir = 0.0;
 	else if (orientation == 'N')
-		game->player.dir = 90.0;
+		game->player.dir = M_PI_2;
 	else if (orientation == 'W')
-		game->player.dir = 180.0;
+		game->player.dir = M_PI;
 	else if (orientation == 'S')
-		game->player.dir = 270.0;
+		game->player.dir = M_PI_2 * 3;
 	return (1);
 }
 
@@ -44,11 +46,11 @@ int	save_player_position(t_game *game, int row, int column)
 
 int	contains_only_allowed_chars(t_game *game)
 {
-	int		start_position_counter;
+	int		player;
 	int		row;
 	int		column;
 
-	start_position_counter = 0;
+	player = 0;
 	row = -1;
 	while (++row < game->rows)
 	{
@@ -58,15 +60,14 @@ int	contains_only_allowed_chars(t_game *game)
 			if (game->map[row][column] == 'N' || game->map[row][column] == 'S'
 				|| game->map[row][column] == 'E'
 				|| game->map[row][column] == 'W')
-				start_position_counter
-					+= save_player_position(game, row, column);
+				player += save_player_position(game, row, column);
 			else if (game->map[row][column] != ' '
 					&& game->map[row][column] != '0'
 					&& game->map[row][column] != '1')
 				return (0);
 		}
 	}
-	if (start_position_counter != 1)
+	if (player != 1)
 		return (0);
 	return (1);
 }

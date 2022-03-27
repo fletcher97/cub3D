@@ -21,7 +21,7 @@
 
 # define EMPTY_LINE					0
 # define SUCCESSFUL_IMPORT			1
-# define TEXTURE_SIZE				50
+# define TEXTURE_SIZE				64
 # define NULL_TERM					1
 # define BITS_PER_BYTE				8
 # define NUMBER_OF_CHANNELS			3

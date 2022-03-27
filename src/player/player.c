@@ -10,113 +10,64 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_stdlib.h"
-//#include "player.h"
 #include <float.h>
+#include <math.h>
 
 #include "c3d.h"
+#include "c3d_map.h"
+#include "c3d_player.h"
 
-//t_player	*player_init(double x, double y, double dir)
-//{
-//	t_player	*player;
-//
-//	player = ft_malloc(sizeof(t_player));
-//	player->pos.x = x;
-//	player->pos.y = y;
-//	player->dir = dir;
-//	return (player);
-//}
-//
-//void	player_destroy(t_player *player)
-//{
-//	ft_free(player);
-//}
+/*
+ *	Moves the player if the movement keys (WASD) are being pressed. It checks if
+ *	moving the player the whole length of STEP makes it go past the map wall
+ *	and, if so, it prevents it from going through the wall.
+*/
 
-// double adjust(char )
+void	move_player(t_game *game)
+{
+	double	x;
+	double	y;
+	int		temp_x;
+	int		temp_y;
 
-//void	move_player(t_game *vars)
-//{
-//	double	x;
-//	double	y;
-//
-//	x = vars->map.player_coord_x;
-//	y = vars->map.player_coord_y;
-//	if (vars->keys_flags.pressing_w || vars->keys_flags.pressing_s
-//		|| vars->keys_flags.pressing_d || vars->keys_flags.pressing_a)
-//	{
-//		// Vertical mov
-//		if (vars->keys_flags.pressing_w)
-//			y -= STEP;
-//		if (vars->keys_flags.pressing_s)
-//			y += STEP;
-//
-//		// Vertical adjustment
-//		if (vars->map.player_coord_y < y)
-//		{
-//			if (vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int)
-//					(x - CENTER_OFFSET + FLT_EPSILON)] == '1'
-//				|| vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)]
-//					[(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
-//				y = ceil(y) - CENTER_OFFSET;
-//		}
-//		else if (vars->map.player_coord_y > y)
-//		{
-//			if (vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)][(int)
-//					(x - CENTER_OFFSET + FLT_EPSILON)] == '1'
-//				|| vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)]
-//					[(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
-//				y = ceil(y) - CENTER_OFFSET;
-//		}
-//
-//		// HOrizontal mov
-//		if (vars->keys_flags.pressing_d)
-//			x += STEP;
-//		if (vars->keys_flags.pressing_a)
-//			x -= STEP;
-//
-//		// Horizontal adjustment
-//
-//		if (vars->map.player_coord_x < x)
-//		{
-//			if (vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int)
-//					(x + CENTER_OFFSET - FLT_EPSILON)] == '1'){
-//				x = ceil(x) - CENTER_OFFSET;
-//			}
-//			else if (vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)]
-//					[(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1'){
-//				x = ceil(x) - CENTER_OFFSET;
-//			}
-//		}
-//
-//		else if (vars->map.player_coord_x > x)
-//		{
-//			if (vars->map.matrix[(int) (y + CENTER_OFFSET - FLT_EPSILON)][(int)
-//					(x - CENTER_OFFSET + FLT_EPSILON)] == '1'){
-//				x = ceil(x) - CENTER_OFFSET;
-//			}
-//			else if (vars->map.matrix[(int) (y - CENTER_OFFSET + FLT_EPSILON)]
-//					[(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'){
-//				x = ceil(x) - CENTER_OFFSET;
-//			}
-//		}
-//
-//		change_player_position(&vars->map, y, x);
-//	}
-//}
-//
-//void	change_player_position(t_map *map, double new_y, double new_x)
-//{
-//	double	old_y;
-//	double	old_x;
-//
-//	old_y = map->player_coord_y;
-//	old_x = map->player_coord_x;
-//	if ((int)new_y != (int)old_y || (int)new_x != (int)old_x)
-//	{
-//		map->matrix[(int) new_y][(int) new_x] = map->matrix[(int) old_y]
-//			[(int) old_x];
-//		map->matrix[(int) old_y][(int) old_x] = '0';
-//	}
-//	map->player_coord_y = new_y;
-//	map->player_coord_x = new_x;
-//}
+	x = game->player.pos.x;
+	y = game->player.pos.y;
+	if (game->player.x_mov)
+	{
+		x += STEP * game->player.x_mov;
+		temp_x = (int) (x + game->player.x_mov * (CENTER_OFFSET - FLT_EPSILON));
+		if (game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][temp_x] == '1'
+			|| game->map[(int) (y + CENTER_OFFSET + FLT_EPSILON)][temp_x] == '1')
+			x = ceil(x) - CENTER_OFFSET;
+	}
+	if (game->player.y_mov)
+	{
+		y += STEP * game->player.y_mov;
+		temp_y = (int) (y + game->player.y_mov * (CENTER_OFFSET - FLT_EPSILON));
+		if (game->map[temp_y][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'
+			|| game->map[temp_y][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
+			y = ceil(y) - CENTER_OFFSET;
+	}
+	game->player.pos.x = x;
+	game->player.pos.y = y;
+}
+
+/*
+ *	Moves the player if the movement keys (WASD) are being pressed. It checks if
+ *	moving the player the whole length of STEP makes it go past the map wall
+ *	and, if so, it prevents it from going through the wall.
+*/
+
+void	move_camera(t_game *game)
+{
+	double	dir;
+
+	dir = game->player.dir;
+	if (game->player.cam_rot)
+		dir += STEP * game->player.cam_rot;
+	if (dir > M_PI * 2)
+		dir = 0;
+	if (dir < 0)
+		dir = M_PI * 2;
+	game->player.dir = dir;
+}

@@ -24,6 +24,7 @@
 #include "c3d_map.h"
 #include "c3d_listener.h"
 #include "c3d_graphics.h"
+#include "c3d_player.h"
 #include "errors.h"
 
 /*
@@ -53,19 +54,22 @@ void	init(t_cub3d *cub3d)
 	}
 }
 
-///still need to understand how you implemented this one
+///still need to understand how you implemented render and next_frame
 int	update(void *param)
 {
 	char		*frame;
 	static int	frame_count = 0;
-	t_cub3d		cub3d;
+	t_cub3d		*cub3d;
 
-	cub3d = *((t_cub3d *) param);
-	render(cub3d);
-	next_frame(cub3d.screen, cub3d.mlx);
+	cub3d = (t_cub3d *) param;
+	move_player(&cub3d->game);
+	move_camera(&cub3d->game);
+//	print_mini_map(vars);
+	render(*cub3d);
+	next_frame(cub3d->screen, cub3d->mlx);
 	frame_count++;
 	frame = ft_itoa(frame_count);
-	mlx_string_put(cub3d.mlx, cub3d.screen.win, cub3d.screen.width
+	mlx_string_put(cub3d->mlx, cub3d->screen.win, cub3d->screen.width
 		- (6 * ft_strlen(frame)), 10, 0x00000000, frame);
 	ft_free(frame);
 	return (1);

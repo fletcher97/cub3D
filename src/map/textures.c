@@ -61,8 +61,8 @@ void	voidp_to_matrix(t_img tmp, int ***texture, int height, int width)
 			{
 				c = (unsigned char *)tmp.addr + (y * tmp.line + (x * (tmp.bpp
 								/ BITS_PER_BYTE)));
-				(*texture)[y][x] = (unsigned int)c[0] << 24 | c[1] << 16
-					| c[2] << 8 | c[3];
+				(*texture)[y][x] = (unsigned int)c[3] << 24 | c[2] << 16
+					| c[1] << 8 | c[0];
 			}
 		}
 	}

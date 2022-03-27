@@ -62,7 +62,8 @@ void	load_map(t_cub3d *cub3d, const char *file)
 	status = 0;
 	while (get_next_line(fd, &line))
 	{
-		(line != NULL) && (line_length = ft_strlen(line));
+		if (line != NULL)
+			(line_length = ft_strlen(line));
 		if (!line || !line_length)
 			status = handle_empty_line(cub3d, line, status);
 		else if (!status)

@@ -40,9 +40,9 @@ int	on_key_press(int key, void *param)
 	if (key == C3D_KEY_ESC)
 		terminate(cub3d, 0);
 	if (key == C3D_KEY_W)
-		cub3d->game.player.y_mov += 1;
-	else if (key == C3D_KEY_S)
 		cub3d->game.player.y_mov -= 1;
+	else if (key == C3D_KEY_S)
+		cub3d->game.player.y_mov += 1;
 	else if (key == C3D_KEY_D)
 		cub3d->game.player.x_mov += 1;
 	else if (key == C3D_KEY_A)
@@ -68,9 +68,9 @@ int	on_key_release(int key, void *param)
 	if (key == C3D_KEY_ESC)
 		terminate(cub3d, 0);
 	if (key == C3D_KEY_W)
-		cub3d->game.player.y_mov -= 1;
-	else if (key == C3D_KEY_S)
 		cub3d->game.player.y_mov += 1;
+	else if (key == C3D_KEY_S)
+		cub3d->game.player.y_mov -= 1;
 	else if (key == C3D_KEY_D)
 		cub3d->game.player.x_mov -= 1;
 	else if (key == C3D_KEY_A)
