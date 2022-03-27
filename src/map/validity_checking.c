@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#define __USE_XOPEN
 #include <math.h>
 #include "c3d_map.h"
 
@@ -25,8 +24,8 @@ int	save_player_position(t_game *game, int row, int column)
 	char	orientation;
 
 	orientation = game->map[row][column];
-	game->player.pos.x = column + CENTER_OFFSET;
-	game->player.pos.y = row + CENTER_OFFSET;
+	game->player.pos.x = column + OFFSET;
+	game->player.pos.y = row + OFFSET;
 	if (orientation == 'E')
 		game->player.dir = 0.0;
 	else if (orientation == 'N')

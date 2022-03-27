@@ -13,7 +13,7 @@
 #ifndef C3D_RAY_CAST_H
 # define C3D_RAY_CAST_H
 
-#include "c3d.h"
+# include "c3d.h"
 
 typedef struct s_check_ret
 {

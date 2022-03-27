@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #undef __STRICT_ANSI__
-#define __USE_XOPEN
 #include <math.h>
 
 #include "ft_stdlib.h"

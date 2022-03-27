@@ -18,38 +18,36 @@
 #include "c3d_player.h"
 
 /*
- *	Moves the player if the movement keys (WASD) are being pressed. It checks if
- *	moving the player the whole length of STEP makes it go past the map wall
- *	and, if so, it prevents it from going through the wall.
-*/
+ *	These adjustments prevent the player from going through the walls. Notice
+ *	that when making the first adjustment (in this case, for the y), it is
+ *	crucial to use the current player->pos.x (and not the yet-to-be-x);
+ *	otherwise, it will not work, it will get stuck when trying to move along a
+ *	vertical wall.
+ */
 
-void	move_player(t_game *game)
+void	adjust_movement(t_player *player, char **map, double x, double y)
 {
-	double	x;
-	double	y;
-	int		temp_x;
-	int		temp_y;
+	double	off;
 
-	x = game->player.pos.x;
-	y = game->player.pos.y;
-	if (game->player.x_mov)
-	{
-		x += STEP * game->player.x_mov;
-		temp_x = (int) (x + game->player.x_mov * (CENTER_OFFSET - FLT_EPSILON));
-		if (game->map[(int) (y - CENTER_OFFSET + FLT_EPSILON)][temp_x] == '1'
-			|| game->map[(int) (y + CENTER_OFFSET + FLT_EPSILON)][temp_x] == '1')
-			x = ceil(x) - CENTER_OFFSET;
-	}
-	if (game->player.y_mov)
-	{
-		y += STEP * game->player.y_mov;
-		temp_y = (int) (y + game->player.y_mov * (CENTER_OFFSET - FLT_EPSILON));
-		if (game->map[temp_y][(int) (x - CENTER_OFFSET + FLT_EPSILON)] == '1'
-			|| game->map[temp_y][(int) (x + CENTER_OFFSET - FLT_EPSILON)] == '1')
-			y = ceil(y) - CENTER_OFFSET;
-	}
-	game->player.pos.x = x;
-	game->player.pos.y = y;
+	off = OFFSET - FLT_EPSILON;
+	if (y > player->pos.y
+		&& (map[(int)(y + off)][(int)(player->pos.x - off)] == '1'
+		|| map[(int)(y + off)][(int)(player->pos.x + off)] == '1'))
+		y = ceil(y) - OFFSET;
+	else if (y < player->pos.y
+		&& (map[(int)(y - off)][(int)(player->pos.x - off)] == '1'
+		|| map[(int)(y - off)][(int)(player->pos.x + off)] == '1'))
+		y = floor(y) + OFFSET;
+	if (x > player->pos.x
+		&& (map[(int)(y + off)][(int)(x + off)] == '1'
+		|| map[(int)(y - off)][(int)(x + off)] == '1'))
+		x = ceil(x) - OFFSET;
+	else if (x < player->pos.x
+		&& (map[(int)(y + off)][(int)(x - off)] == '1'
+		|| map[(int)(y - off)][(int)(x - off)] == '1'))
+		x = floor(x) + OFFSET;
+	player->pos.x = x;
+	player->pos.y = y;
 }
 
 /*
@@ -57,6 +55,30 @@ void	move_player(t_game *game)
  *	moving the player the whole length of STEP makes it go past the map wall
  *	and, if so, it prevents it from going through the wall.
 */
+
+void	move_player(t_player *player, char **map)
+{
+	int		vector_adj;
+	double	angle_adj;
+	double	x;
+	double	y;
+
+	vector_adj = -1;
+	angle_adj = 1;
+	if (player->x_mov == 0)
+		vector_adj = player->y_mov;
+	else if (player->y_mov == 0)
+		angle_adj = M_PI_2;
+	else if (player->y_mov > 0)
+		angle_adj = M_PI_4 * 3;
+	else
+		angle_adj = M_PI_4;
+	x = player->pos.x;
+	x += vector_adj * STEP * cos(player->dir + player->x_mov * angle_adj);
+	y = player->pos.y;
+	y += vector_adj * STEP * sin(player->dir + player->x_mov * angle_adj);
+	adjust_movement(player, map, x, y);
+}
 
 void	move_camera(t_game *game)
 {
