@@ -16,45 +16,36 @@
 #include "c3d.h"
 #include "c3d_map.h"
 #include "c3d_player.h"
-#include <stdio.h>
 
-///the problem is here, the adjustment can't me made separately for both axis,
-///because otherwise he can't enter either the passage on the left or the one on
-///the back
-
-/// the same error makes the player get stuck when trying to go against vertical
-/// walls (but not horizontal ones)
+/*
+ *	These adjustments prevent the player from going through the walls. Notice
+ *	that when making the first adjustment (in this case, for the y), it is
+ *	crucial to use the current player->pos.x (and not the yet-to-be-x);
+ *	otherwise, it will not work, it will get stuck when trying to move along a
+ *	vertical wall.
+ */
 
 void	adjust_movement(t_player *player, char **map, double x, double y)
 {
-	double	off = OFFSET - FLT_EPSILON;
+	double	off;
 
-	if (player->pos.y < y)
-	{
-		if (map[(int) (y + off)][(int) (x - off)] == '1'
-			|| map[(int) (y + off)][(int) (x + off)] == '1')
-			y = ceil(y) - OFFSET;
-	}
-	else if (player->pos.y > y)
-	{
-		if (map[(int) (y - off)][(int) (x - off)] == '1'
-			|| map[(int) (y - off)][(int) (x + off)] == '1')
-			y = ceil(y) - OFFSET;
-	}
-
-	// Horizontal adjustment
-	if (player->pos.x < x)
-	{
-		if (map[(int) (y + off)][(int) (x + off)] == '1'
-		|| map[(int) (y - off)][(int) (x + off)] == '1')
-			x = ceil(x) - OFFSET;
-	}
-	else if (player->pos.x > x)
-	{
-		if (map[(int) (y + off)][(int) (x - off)] == '1'
-		|| map[(int) (y - off)][(int) (x - off)] == '1')
-			x = ceil(x) - OFFSET;
-	}
+	off = OFFSET - FLT_EPSILON;
+	if (y > player->pos.y
+		&& (map[(int)(y + off)][(int)(player->pos.x - off)] == '1'
+		|| map[(int)(y + off)][(int)(player->pos.x + off)] == '1'))
+		y = ceil(y) - OFFSET;
+	else if (y < player->pos.y
+		&& (map[(int)(y - off)][(int)(player->pos.x - off)] == '1'
+		|| map[(int)(y - off)][(int)(player->pos.x + off)] == '1'))
+		y = floor(y) + OFFSET;
+	if (x > player->pos.x
+		&& (map[(int)(y + off)][(int)(x + off)] == '1'
+		|| map[(int)(y - off)][(int)(x + off)] == '1'))
+		x = ceil(x) - OFFSET;
+	else if (x < player->pos.x
+		&& (map[(int)(y + off)][(int)(x - off)] == '1'
+		|| map[(int)(y - off)][(int)(x - off)] == '1'))
+		x = floor(x) + OFFSET;
 	player->pos.x = x;
 	player->pos.y = y;
 }
@@ -88,9 +79,6 @@ void	move_player(t_player *player, char **map)
 	y += vectorAdj * STEP * sin(player->dir + player->x_mov * angleAdj);
 	adjust_movement(player, map, x, y);
 }
-
-
-
 
 void	move_camera(t_game *game)
 {
