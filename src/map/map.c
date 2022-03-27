@@ -31,7 +31,7 @@
 **	the .cub file.
 */
 
-void	init_parsing_variables(t_cub3d *cub3d)
+void	init_parsing_variables(t_cub3d *cub3d, int *status)
 {
 	cub3d->screen.textures.no = NULL;
 	cub3d->screen.textures.so = NULL;
@@ -42,6 +42,7 @@ void	init_parsing_variables(t_cub3d *cub3d)
 	cub3d->game.map = NULL;
 	cub3d->game.cols = 0;
 	cub3d->game.rows = 0;
+	*status = 0;
 }
 
 /*
@@ -58,8 +59,7 @@ void	load_map(t_cub3d *cub3d, const char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		terminate(cub3d, ERROR_READING_MAP_FILE);
-	init_parsing_variables(cub3d);
-	status = 0;
+	init_parsing_variables(cub3d, &status);
 	while (get_next_line(fd, &line))
 	{
 		if (line != NULL)
