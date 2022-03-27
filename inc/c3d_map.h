@@ -26,7 +26,7 @@
 # define NULL_TERM					1
 # define BITS_PER_BYTE				8
 # define NUMBER_OF_CHANNELS			3
-# define OFFSET						0.5
+# define OFFSET						0.25
 
 /*
 ** ELEMENT TYPES ON THE MAP
