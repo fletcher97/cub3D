@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 00:25:22 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/14 00:27:55 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:27:10 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	save_player_position(t_game *game, int row, int column)
 	game->player.pos.x = column + OFFSET;
 	game->player.pos.y = row + OFFSET;
 	if (orientation == 'E')
-		game->player.dir = 0.0;
+		game->player.dir = M_PI;
 	else if (orientation == 'N')
 		game->player.dir = M_PI_2;
 	else if (orientation == 'W')
-		game->player.dir = M_PI;
+		game->player.dir = 0.0;
 	else if (orientation == 'S')
 		game->player.dir = M_PI_2 * 3;
 	return (1);
