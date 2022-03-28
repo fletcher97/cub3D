@@ -7,4 +7,5 @@
 -6:Failed to read image
 -7:Failed to get MLX connection
 -8:Failed to create window
--9:Map contains duplicate definitions for the same texture
+-9:Failed to upload a texture
+-10:Map contains duplicate definitions for the same texture
