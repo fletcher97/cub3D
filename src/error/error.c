@@ -25,22 +25,28 @@
 static void	free_map(t_cub3d *cub3d)
 {
 	int	i;
+	int	j;
+	int	***textures;
 
+	textures = malloc(NB_TEXTURES * sizeof(int ***));
+	textures[0] = cub3d->screen.textures.no;
+	textures[1] = cub3d->screen.textures.so;
+	textures[2] = cub3d->screen.textures.ea;
+	textures[3] = cub3d->screen.textures.we;
 	while (cub3d->game.rows--)
 		ft_free(cub3d->game.map[cub3d->game.rows]);
 	ft_free(cub3d->game.map);
-	i = TEXTURE_SIZE;
-	while (i--)
+	j = -1;
+	while (++j < NB_TEXTURES)
 	{
-		ft_free(cub3d->screen.textures.no[i]);
-		ft_free(cub3d->screen.textures.so[i]);
-		ft_free(cub3d->screen.textures.ea[i]);
-		ft_free(cub3d->screen.textures.we[i]);
+		if (textures[j])
+		{
+			i = TEXTURE_SIZE;
+			while (i--)
+				ft_free(textures[j][i]);
+			ft_free(textures[j]);
+		}
 	}
-	ft_free(cub3d->screen.textures.no);
-	ft_free(cub3d->screen.textures.so);
-	ft_free(cub3d->screen.textures.ea);
-	ft_free(cub3d->screen.textures.we);
 }
 
 // TODO: destroy map

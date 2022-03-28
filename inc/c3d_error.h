@@ -14,6 +14,7 @@
 # define C3D_ERROR_H
 
 # include "c3d.h"
+# define NB_TEXTURES 4
 
 void	terminate(t_cub3d *cub3d, int exit_code);
 
