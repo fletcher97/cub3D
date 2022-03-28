@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fletcher <fletcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 01:00:10 by fletcher          #+#    #+#             */
-/*   Updated: 2022/02/22 01:28:16 by fletcher         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:23:37 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	render_map(t_game game, t_screen s)
 	i = -1;
 	while (++i < game.rows)
 	{
-		j = -1;
+		j = 0;
 		while (++j <= game.cols)
 		{
 			c = 0;
