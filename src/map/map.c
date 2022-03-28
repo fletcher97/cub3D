@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 21:30:16 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/03/28 17:25:21 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/28 17:27:39 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ int	parse_header(void *mlx, t_tex *tex, char *line)
 	if (!aux[1] || aux[2] || !is_valid_element(aux[0], &id))
 	{
 		free_split(aux);
-		return (ERROR_READING_MAP_FILE);
+		return (INVALID_MAP);
 	}
 	ret = load_elements(mlx, tex, aux, id);
 	free_split(aux);
