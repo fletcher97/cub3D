@@ -106,6 +106,8 @@ int	load_elements(void *mlx, t_tex *tex, char **aux, int id)
 		ret = load_color(&tex->c, aux[1]);
 	else if (id == FLOOR && !floor && ++floor)
 		ret = load_color(&tex->f, aux[1]);
+	else
+		return (REPEATED_ASSET);
 	if (ceil > 1 || floor > 1)
 		return (REPEATED_ASSET);
 	if (ret < 0)
