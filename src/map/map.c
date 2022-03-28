@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 21:30:16 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/14 00:32:16 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/28 17:25:21 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,12 @@ void	init_parsing_variables(t_cub3d *cub3d, int *status)
  *	lengths).
  */
 
-void	load_map(t_cub3d *cub3d, const char *file)
+void	load_map(t_cub3d *cub3d, int fd)
 {
-	int		fd;
 	int		status;
 	char	*line;
 	size_t	line_length;
 
-	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		terminate(cub3d, ERROR_READING_MAP_FILE);
 	init_parsing_variables(cub3d, &status);
@@ -77,6 +75,7 @@ void	load_map(t_cub3d *cub3d, const char *file)
 		if (status < 0)
 			terminate(cub3d, status);
 	}
+	ft_free(line);
 	fill_map_with_space_chars(cub3d, &cub3d->game);
 	if (!is_map_valid(&cub3d->game))
 		terminate(cub3d, INVALID_MAP);

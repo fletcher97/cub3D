@@ -6,10 +6,11 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/03/28 16:30:07 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/28 17:21:30 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include <stdio.h>
 
 #include "mlx.h"
@@ -86,7 +87,7 @@ int	main(int argc, char *argv[])
 	if (!cub3d)
 		terminate(cub3d, FAILED_MALLOC);
 	init(cub3d);
-	load_map(cub3d, argv[1]);
+	load_map(cub3d, open(argv[1], O_RDONLY));
 	set_listeners(cub3d);
 	mlx_loop_hook(cub3d->mlx, update, cub3d);
 	mlx_loop(cub3d->mlx);

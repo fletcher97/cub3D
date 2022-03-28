@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   c3d_map.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jsantos <jsantos@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:37:16 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/11 18:15:30 by jsantos          ###   ########.fr       */
+/*   Updated: 2022/03/28 17:21:51 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef enum e_graphics {
 	FLOOR	= 6,
 }	t_graphics;
 
-void	load_map(t_cub3d *cub3d, const char *file);
+void	load_map(t_cub3d *cub3d, int file);
 int		handle_empty_line(t_cub3d *cub3d, char *line, int status);
 int		parse_header(void *mlx, t_tex *tex, char *line);
 int		load_elements(void *mlx, t_tex *tex, char **aux, int id);
