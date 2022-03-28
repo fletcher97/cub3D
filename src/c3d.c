@@ -56,7 +56,10 @@ void	init(t_cub3d *cub3d)
 	}
 }
 
-///still need to understand how you implemented render and next_frame
+/*
+ *	Re-render the window.
+ */
+
 int	update(void *param)
 {
 	char		*frame;
