@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/18 20:35:47 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:30:07 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int	main(int argc, char *argv[])
 {
 	t_cub3d	*cub3d;
 
+	load_err("res/err.txt");
 	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
 		terminate(NULL, ILLEGAL_INPUT);
-	load_err("res/err.txt");
 	cub3d = ft_calloc(1, sizeof(t_cub3d));
 	if (!cub3d)
 		terminate(cub3d, FAILED_MALLOC);
