@@ -83,8 +83,10 @@ int	main(int argc, char *argv[])
 	int		fd;
 
 	load_err("res/err.txt");
-	if (argc != 2 || !ft_strendw(argv[1], ".cub"))
+	if (argc != 2)
 		terminate(NULL, ILLEGAL_INPUT);
+	if (!ft_strendw(argv[1], ".cub"))
+		terminate(NULL, WRONG_EXTENSION);
 	cub3d = ft_calloc(1, sizeof(t_cub3d));
 	if (!cub3d)
 		terminate(cub3d, FAILED_MALLOC);
