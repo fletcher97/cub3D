@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 21:25:30 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/14 00:22:56 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:29:53 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	move_camera(t_game *game)
 
 	dir = game->player.dir;
 	if (game->player.cam_rot)
-		dir += STEP * game->player.cam_rot;
+		dir += DIR_STEP * game->player.cam_rot;
 	if (dir > M_PI * 2)
 		dir = 0;
 	if (dir < 0)
