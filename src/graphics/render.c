@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fletcher <fletcher@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 00:21:57 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/02/22 01:04:04 by fletcher         ###   ########.fr       */
+/*   Updated: 2022/03/28 18:22:56 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	render_floor(t_screen screen, int color)
 	i = screen.height / 2 - 1;
 	while (++i < screen.height)
 	{
-		j = 0;
+		j = -1;
 		while (++j < screen.width)
 			my_mlx_pixel_put(&screen.img[1], j, i, color);
 	}
