@@ -51,9 +51,9 @@ void	adjust_movement(t_player *player, char **map, double x, double y)
 }
 
 /*
- *	Moves the player if the movement keys (WASD) are being pressed. It checks if
- *	moving the player the whole length of STEP makes it go past the map wall
- *	and, if so, it prevents it from going through the wall.
+ *	Moves the player if the movement keys (WASD) are being pressed. Calls the
+ *	adjust_movement to check if moving the player the whole length of STEP makes
+ *	it go past the map wall and, if so, it prevents it.
 */
 
 void	move_player(t_player *player, char **map)
@@ -79,6 +79,11 @@ void	move_player(t_player *player, char **map)
 	y += vector_adj * STEP * sin(player->dir + player->x_mov * angle_adj);
 	adjust_movement(player, map, x, y);
 }
+
+/*
+ *	Moves the camera if the camera rotation keys (side arrows) are being
+ *	pressed.
+ */
 
 void	move_camera(t_game *game)
 {

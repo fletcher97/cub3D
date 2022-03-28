@@ -13,9 +13,13 @@
 #include "c3d_map.h"
 #include "errors.h"
 #include "ft_string.h"
-#include "c3d_map.h"
 #include "ft_stdlib.h"
 #include "ft_math.h"
+
+/*
+ *	Counts the number of characters 'chr' in the string 'str'. In this case, the
+ *	character of interest is the comma, which splits the RGB channels.
+ */
 
 int	ft_strchr_all(char *str, char chr)
 {

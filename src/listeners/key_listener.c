@@ -15,6 +15,11 @@
 #include <stdio.h>
 #include "c3d_error.h"
 
+/*
+ *	This function is called when clicking the red cross to close the window. It
+ *	ends the program.
+ */
+
 int	stop(void *param)
 {
 	t_cub3d	*cub3d;
@@ -30,7 +35,7 @@ int	stop(void *param)
  *	move_camera key (left and right arrows), it sets the corresponding flag to
  *	1, so that the action will continue until the rey is released. This is
  *	possible because redraw_window is called in a loop.
-*/
+ */
 
 int	on_key_press(int key, void *param)
 {
@@ -58,7 +63,7 @@ int	on_key_press(int key, void *param)
  *	This is called whenever a key is released. If the key is  a move_player key
  *	(WSDA) or a move_camera key (left and right arrows), it sets the
  *	corresponding flag to 0, therefore terminating the action.
-*/
+ */
 
 int	on_key_release(int key, void *param)
 {
@@ -81,6 +86,11 @@ int	on_key_release(int key, void *param)
 		cub3d->game.player.cam_rot -= 1;
 	return (0);
 }
+
+/*
+ *	This corrects a bug in MLX that locks the pressed key when minimizing the
+ *	window.
+ */
 
 int	on_lost_focus(void *param)
 {

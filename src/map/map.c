@@ -27,9 +27,9 @@
 #include "ft_memutils.h"
 
 /*
-**	Initializes and sets to NULL and 0 the variables used during the parsing of
-**	the .cub file.
-*/
+ *	Initializes and sets to NULL and 0 the variables used during the parsing of
+ *	the .cub file. It also initializes the status variable, passed by address.
+ */
 
 void	init_parsing_variables(t_cub3d *cub3d, int *status)
 {
@@ -47,7 +47,11 @@ void	init_parsing_variables(t_cub3d *cub3d, int *status)
 
 /*
  *	Status can indicate error (-1), parsing header (0) or parsing map (1).
-*/
+ *	Notice that in the end it calls fill_map_with_space_chars to end up with a
+ *	rectangular map, so that the comparison between adjacent values does not
+ *	segfault (that would happen if the lines on the matrix had different
+ *	lengths).
+ */
 
 void	load_map(t_cub3d *cub3d, const char *file)
 {
@@ -77,6 +81,11 @@ void	load_map(t_cub3d *cub3d, const char *file)
 	if (!is_map_valid(&cub3d->game))
 		terminate(cub3d, INVALID_MAP);
 }
+
+/*
+ *	This function loads the passed on content to an element. It knows in which
+ *	element to load thanks to the id parameter.
+ */
 
 int	load_elements(void *mlx, t_tex *tex, char **aux, int id)
 {
@@ -115,13 +124,13 @@ int	load_elements(void *mlx, t_tex *tex, char **aux, int id)
  *	3) Before loading the element, checks if that element has already been
  *	loaded; note that for checking whether the colors have been loaded, it would
  *	not be feasible to check whether it was different from 0. Hence, a static
- *	variable was created for each of them which works as a ret.
+ *	variable was created for each of them which works as a 'ret'.
  *
- *	This functions return value informs whether the map header has had an error
+ *	This function's return value informs whether the map header has had an error
  *	(<0), it is still ongoing (0) or has finished and the program can start
  *	reading the map itself (1).
-*/
-/// line 140 let me know if you want another error, since this is a header issue
+ */
+
 int	parse_header(void *mlx, t_tex *tex, char *line)
 {
 	char		**aux;
@@ -151,7 +160,7 @@ int	parse_header(void *mlx, t_tex *tex, char *line)
  *	Parses through the file and saves every read line to a reallocated matrix.
  *	Before doing so, it does check if the size of every line is the same, saving
  *	the biggest line length found so far.
-*/
+ */
 
 int	parse_map(t_cub3d *cub3d, t_game *game, char *line, int line_length)
 {
