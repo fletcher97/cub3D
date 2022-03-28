@@ -28,7 +28,6 @@ typedef enum e_errors {
 	NO_WINDOW					= -8,
 	NO_IMG						= -9,
 	REPEATED_ASSET				= -10,
-	NO_MINIMAP_TEXTURES			= -11
 }	t_errors;
 
 #endif //ERRORS_H
