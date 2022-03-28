@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/30 00:39:57 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/01/18 23:37:24 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/28 16:59:01 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	free_map(t_cub3d *cub3d)
 			ft_free(textures[j]);
 		}
 	}
+	ft_free(textures);
 }
 
 // TODO: destroy map
