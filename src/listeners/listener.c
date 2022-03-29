@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/29 23:01:15 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/03/27 19:39:26 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/29 12:18:33 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 void	set_listeners(t_cub3d *cub3d)
 {
+	mlx_do_key_autorepeatoff(cub3d->mlx);
 	mlx_hook(cub3d->screen.win, MLX_DESTROY_NOTIFY, 1L, stop, cub3d);
 	mlx_hook(cub3d->screen.win, MLX_FOCUS_LOST, (1L << 21),
 		on_lost_focus, cub3d);
