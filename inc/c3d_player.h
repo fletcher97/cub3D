@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 03:19:18 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/03/28 18:40:24 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/29 12:21:58 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "c3d.h"
 
-# define STEP		0.20
-# define DIR_STEP	0.10
+# define STEP		0.10
+# define DIR_STEP	0.05
 
 void	move_player(t_player *player, char **map);
 void	move_camera(t_game *game);
