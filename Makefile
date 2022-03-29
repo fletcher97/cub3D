@@ -280,7 +280,9 @@ ${BIN_ROOT}${NAME1}: ${LIBFT} ${MLX_LIB} $$(call get_files,$${@F},$${OBJS_LIST})
 
 ${LIBFT}: $$(call get_lib_target,$${DEFAULT_LIBS},all) ;
 
-${MLX_LIB}: ; ${AT}make -C ${MLX_LIB_ROOT}
+${MLX_LIB}:
+	${AT}make -C ${MLX_LIB_ROOT}${BLOCK}
+	${AT}cp ${MLX_LIB} . ${BLOCK}
 
 ################################################################################
 # Clean Targets
