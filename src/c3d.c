@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 02:26:36 by mgueifao          #+#    #+#             */
-/*   Updated: 2022/03/28 17:32:48 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/29 12:21:03 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	init(t_cub3d *cub3d)
 
 int	update(void *param)
 {
-	char		*frame;
-	static int	frame_count = 0;
 	t_cub3d		*cub3d;
 
 	cub3d = (t_cub3d *) param;
@@ -72,11 +70,6 @@ int	update(void *param)
 	move_camera(&cub3d->game);
 	render(*cub3d);
 	next_frame(cub3d->screen, cub3d->mlx);
-	frame_count++;
-	frame = ft_itoa(frame_count);
-	mlx_string_put(cub3d->mlx, cub3d->screen.win, cub3d->screen.width
-		- (6 * ft_strlen(frame)), 10, 0x00000000, frame);
-	ft_free(frame);
 	return (1);
 }
 
