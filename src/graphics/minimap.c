@@ -6,7 +6,7 @@
 /*   By: mgueifao <mgueifao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 01:00:10 by fletcher          #+#    #+#             */
-/*   Updated: 2022/03/28 18:23:37 by mgueifao         ###   ########.fr       */
+/*   Updated: 2022/03/29 12:38:07 by mgueifao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@ void	draw_square(int x, int y, int color, t_screen s)
 	{
 		l = -1;
 		while (++l < MINIMAP_TILE_SIZE)
-			my_mlx_pixel_put(&s.img[1], s.width - x * MINIMAP_TILE_SIZE + k,
-				y * MINIMAP_TILE_SIZE + l, color);
+			if (s.width - x * MINIMAP_TILE_SIZE + k >= 0
+				&& s.width - x * MINIMAP_TILE_SIZE + k < s.width
+				&& y * MINIMAP_TILE_SIZE + l >= 0
+				&& y * MINIMAP_TILE_SIZE + l < s.height)
+				my_mlx_pixel_put(&s.img[1], s.width - x * MINIMAP_TILE_SIZE + k,
+					y * MINIMAP_TILE_SIZE + l, color);
 	}
 }
 
