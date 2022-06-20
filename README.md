@@ -3,7 +3,7 @@
 ![screenshot](sample.gif)
 
 ### SUMMARY
-Simple 3D maze, using raycasting.\
+Simple 3D maze, using raycasting. Project of the 42 cursus.
 Uses a basic graphics library called MiniLibX, provided by 42 school. You can find more info on the subject file.
 
 ### COMPILING (with CMake)
